@@ -7,14 +7,15 @@
   :depends-on (alexandria
                esrap
                babel
+               jp-numeral
                lime/skk/text
-               lime/skk/pattern)
+               lime/skk/pattern
+               lime/skk/lisp)
   :in-order-to ((test-op (test-op lime/tests))))
 
 (defsystem lime/tests
   :class :package-inferred-system
   :depends-on (rove
-               trivial-download
                lime
                lime/tests/skk/text
                lime/tests/skk/pattern
