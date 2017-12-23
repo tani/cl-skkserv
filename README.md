@@ -1,6 +1,6 @@
-<div style="text-align:center">
-<h1>LIME<br><small>Lisp Input Method Editor</small></h1>
-<img src="https://openclipart.org/image/2400px/svg_to_png/273616/Lime.png" height="100px"/>
+<div style="text-align: center">
+	<h1>LIME<br><small>Lisp Input Method Editor</small></h1>
+	<img src="https://openclipart.org/image/2400px/svg_to_png/273616/Lime.png" height="100px"/>
 </div>
 
 ## 概要
@@ -81,14 +81,14 @@ LIMEで既に定義されている辞書としては以下のクラスがあり�
         - skk-dictionary [1]
     - skk-lisp-dictionary
         - skk-dictionary [1]
-    - skk-pattern-dictionary
+    - skk-pattern-dictionary [2]
         - skk-lisp-dictionary [1]
     - mixed-dictionary
-    - proxy-dictionary [2]
+    - proxy-dictionary [3]
 
-
-1. skk-dictionaryはskk-text-dictionaryとskk-lisp-dictionaryとskk-lisp-dictionaryの３つを継承したクラスです。
-2. proxy-dictionaryは他のSKKサーバーと通信するためのクラスです。
+1. skk-dictionaryはskk-text-dictionaryとskk-lisp-dictionaryとskk-lisp-dictionaryの３つを継承したクラスです
+2. 対応している数値変換は無変換(#0)と全角(#1)と漢数字(#2 #3 #5)です
+3. proxy-dictionaryは他のSKKサーバーと通信するためのクラスです
 
 ## ライセンス
 GPL第三版及びそれ以降のライセンスのもとで公開された自由ソフトウェアです。
