@@ -14,4 +14,4 @@
    (ok (make-instance 'skk-lisp-dictionary :filespec #p"./SKK-JISYO.L")))
   (testing 
    "辞書の検索機能のテスト"
-   (ok (lookup (make-instance 'skk-lisp-dictionary :filespec #p"./SKK-JISYO.L") "みr"))))
+   (ok (lookup (make-instance 'skk-lisp-dictionary :filespec #p"./SKK-JISYO.L") "dosv"))))
