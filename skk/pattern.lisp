@@ -48,10 +48,10 @@
                (remhash key (table dict))))
            (table dict)))
 
-(defmethod lookup ((dictionary skk-pattern-dictionary) (word string))
-  (let* ((arguments (parse '(+ (or digits non-digits)) word))
-         (masked (regex-replace-all "[0-9]+" word "#"))
-	 (candidates (gethash masked (table dictionary))))
+(defmethod lookup ((d skk-pattern-dictionary) (s string))
+  (let* ((arguments (parse '(+ (or digits non-digits)) s))
+         (masked (regex-replace-all "[0-9]+" s "#"))
+	 (candidates (gethash masked (table d))))
     (flet ((make-candidate (candidate)
              (let ((functions (parse '(+ (or placeholder non-placeholder)) candidate)))
                (format nil "~{~A~}" (mapcar #'funcall functions (append arguments '(nil)))))))
