@@ -30,4 +30,3 @@
         (unless (null record)
           (setf (gethash (first record) table) 
                 (mapcar #'remove-comment (rest record))))))))
-

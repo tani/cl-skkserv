@@ -22,5 +22,5 @@
                (remhash key (table dict))))
            (table dict)))
 
-(defmethod lookup ((dict skk-text-dictionary) (word string))
-  (gethash word (table dict) ""))
+(defmethod lookup ((d skk-text-dictionary) (s string))
+  (gethash s (table d) ""))
