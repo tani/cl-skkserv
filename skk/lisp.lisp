@@ -1,6 +1,6 @@
 (in-package :cl)
 (defpackage :lime/skk/lisp
-  (:use :cl :cl-ppcre
+  (:use :cl :cl-ppcre :esrap :alexandria
         :lime/core/dictionary
         :lime/skk/util)
   (:export skk-lisp-dictionary lispp))
@@ -25,8 +25,11 @@
 (defun concat (&rest s) (format nil "~{~A~}" s))
 
 (defmethod lookup ((dict skk-lisp-dictionary) (word string))
-  (let ((candidates (gethash word (table dict) "")))
-    (mapcar (lambda (candidate)
-              (let ((*package* (find-package :lime/skk/lisp)))
-                (eval (read-from-string candidate))))
-            candidates)))
+  (let* ((candidates (gethash word (table dict) ""))
+         (*package* (find-package :lime/skk/lisp)))
+    (labels ((octet-to-char-1 (matches digits)
+               (declare (ignore matches))
+               (princ-to-string (code-char (parse-integer digits :radix 8))))
+             (octet-to-char (candidate)
+               (regex-replace-all "\\\\0(\\d\\d)" candidate #'octet-to-char-1 :simple-calls t)))
+      (mapcar (compose #'eval #'read-from-string #'octet-to-char) candidates))))
