@@ -6,11 +6,14 @@
         :lime/skk/text
         :lime/skk/pattern
         :lime/skk/lisp)
-  (:export skk-dictionar
+  (:export skk-dictionary
            skk-text-dictionary
            skk-pattern-dictionary
            skk-lisp-dictionary))
 (in-package :lime/skk/main)
 
 (defclass skk-dictionary (skk-text-dictionary skk-pattern-dictionary skk-lisp-dictionary) ())
-(defmethod lookup ((d skk-dictionary) (s string)))
+(defmethod lookup ((d skk-dictionary) (s string))
+  (or (call-next-method)
+      (call-next-method)
+      (call-next-method)))
