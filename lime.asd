@@ -7,10 +7,9 @@
   :depends-on (alexandria
                esrap
                babel
+               usocket
                jp-numeral
-               lime/skk/text
-               lime/skk/pattern
-               lime/skk/lisp)
+               lime/main)
   :in-order-to ((test-op (test-op lime/tests))))
 
 (defsystem lime/tests
