@@ -1,0 +1,21 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp (ql:quickload '(:lime) :silent t)
+  )
+
+(defpackage :ros.script.lime.3723019386
+  (:use :cl :lime))
+(in-package :ros.script.lime.3723019386)
+
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (server-start
+   :address "localhost"
+   :port 5000
+   :dictionary (make-instance 'skk-dictionary :filespec #p"./SKK-JISYO.L")))
+;;; vim: set ft=lisp lisp:
