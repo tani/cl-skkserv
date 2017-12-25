@@ -8,9 +8,8 @@
                cl-ppcre
                esrap
                babel
-               usocket
-               usocket-server
                jp-numeral
+               usocket
                drakma
                lime/main)
   :in-order-to ((test-op (test-op lime/tests))))
