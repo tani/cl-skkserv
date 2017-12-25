@@ -14,4 +14,4 @@
            skk-pattern-dictionary
            skk-lisp-dictionary))
 (in-package :lime/main)
-        
+

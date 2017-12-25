@@ -9,8 +9,8 @@
 
 (defun hankaku-to-zenkaku (s)
   (flet ((hankaku-to-zenkaku-1 (c)
-	   (princ-to-string
-	    (char "０１２３４５６７８９" (parse-integer c)))))
+           (princ-to-string
+            (char "０１２３４５６７８９" (parse-integer c)))))
     (regex-replace-all "\\d" s #'hankaku-to-zenkaku-1 :simple-calls t)))
 
 (defrule placeholder (and #\# (? (character-ranges (#\0 #\9))))
@@ -51,7 +51,7 @@
 (defmethod convert append ((d skk-pattern-dictionary) (s string))
   (let* ((arguments (parse '(+ (or digits non-digits)) s))
          (masked (regex-replace-all "[0-9]+" s "#"))
-	 (candidates (gethash masked (table d))))
+         (candidates (gethash masked (table d))))
     (flet ((make-candidate (candidate)
              (let ((functions (parse '(+ (or placeholder non-placeholder)) candidate)))
                (format nil "~{~A~}" (mapcar #'funcall functions (append arguments '(nil)))))))
