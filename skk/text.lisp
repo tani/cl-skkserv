@@ -24,3 +24,7 @@
 
 (defmethod convert append ((d skk-text-dictionary) (s string))
   (gethash s (table d) ""))
+
+(defmethod complete append ((d skk-text-dictionary) (s string))
+  (loop :for key :being :the :hash-keys :of (table d)
+        :when (scan (format nil "^~a" s) key) :collect key))

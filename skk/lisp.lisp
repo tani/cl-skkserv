@@ -1,7 +1,7 @@
 (in-package :cl)
 (defpackage :lime/skk/lisp
   (:use :cl :cl-ppcre :esrap :alexandria)
-  (:import-from :lime/core/dictionary dictionary convert)
+  (:import-from :lime/core/dictionary dictionary convert complete)
   (:import-from :lime/skk/util make-table)
   (:export skk-lisp-dictionary lispp))
 (in-package :lime/skk/lisp)
@@ -33,3 +33,7 @@
              (octet-to-char (candidate)
                (regex-replace-all "\\\\0(\\d\\d)" candidate #'octet-to-char-1 :simple-calls t)))
       (mapcar (compose #'eval #'read-from-string #'octet-to-char) candidates))))
+
+(defmethod complete append ((d skk-lisp-dictionary) (s string))
+  (loop :for key :being :the :hash-keys :of (table d)
+        :when (scan (format nil "^~a" s) key) :collect key))

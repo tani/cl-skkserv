@@ -1,7 +1,7 @@
 (in-package :cl)
 (defpackage :lime/core/server
   (:use :cl :esrap :asdf :usocket)
-  (:import-from :lime/core/dictionary convert)
+  (:import-from :lime/core/dictionary convert complete)
   (:export server-start handler))
 (in-package :lime/core/server)
 
@@ -17,7 +17,7 @@
                      convert-request
                      version-request
                      name-request))
-                     
+
 (defun chomp (s)
   (let ((end (or (position (code-char 13) s)
                  (position (code-char 10) s))))
@@ -32,12 +32,12 @@
       (1 (format stream "1/~{~A/~} " (convert dictionary (second request))))
       (2 (format stream "~a " (component-version (find-system :lime))))
       (3 (format stream "hostname:addr:...: "))
-      (4 (format stream "4/~{~A/~}~%" (convert dictionary (second request))))) ;; FIXME
+      (4 (format stream "4/~{~A/~}~%" (complete dictionary (second request)))))
     (force-output stream)
     (return-from handler nil)))
 
 (defun server-start (&key address port dictionary)
-  (socket-server 
+  (socket-server
    address port
    (lambda (stream)
      (loop :until (handler stream address port dictionary)))))
