@@ -11,4 +11,4 @@
    (ok (setq *dictionary* (make-instance 'skk-pattern-dictionary :filespec #p"./SKK-JISYO.L"))))
   (testing 
    "辞書の検索"
-   (ok (string= "12月24日" (first (lookup *dictionary* "12/24"))))))
+   (ok (string= "12月24日" (first (convert *dictionary* "12/24"))))))

@@ -1,9 +1,9 @@
 (in-package :cl)
 (defpackage :lime/skk/pattern
-  (:use :cl :esrap :cl-ppcre :alexandria
-        :lime/core/dictionary
-        :lime/skk/lisp
-        :lime/skk/util)
+  (:use :cl :esrap :cl-ppcre :alexandria)
+  (:import-from :lime/core/dictionary dictionary convert)
+  (:import-from :lime/skk/lisp lispp)
+  (:import-from :lime/skk/util make-table)
   (:export skk-pattern-dictionary patternp))
 (in-package :lime/skk/pattern)
 
@@ -48,7 +48,7 @@
                (remhash key (table dict))))
            (table dict)))
 
-(defmethod lookup ((d skk-pattern-dictionary) (s string))
+(defmethod convert append ((d skk-pattern-dictionary) (s string))
   (let* ((arguments (parse '(+ (or digits non-digits)) s))
          (masked (regex-replace-all "[0-9]+" s "#"))
 	 (candidates (gethash masked (table d))))

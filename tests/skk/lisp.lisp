@@ -11,4 +11,4 @@
    (ok (setf *dictionary* (make-instance 'skk-lisp-dictionary :filespec #p"./SKK-JISYO.L"))))
   (testing 
    "辞書の検索"
-   (ok (string= "DOS/V" (first (lookup *dictionary* "dosv"))))))
+   (ok (string= "DOS/V" (first (convert *dictionary* "dosv"))))))

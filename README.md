@@ -47,23 +47,18 @@ Common Lisp開発ツールであるRoswellを使うことで以下のように�
 もしあなたが新しい辞書を作りたい場合はDICTIONARYクラスを継承しLOOKUPメソッドを定義したクラスを作ることで辞書を作ることができます。
 
 以下は入力をそのまま候補として返すEcho辞書の例です。
-
+メソッドコンビネーションがlistになっていることに注意してください。
 ```lisp
 (defclass echo-dictionary (dictionary) ())
-(defmethod lookup ((d echo-dictionary) (s string)) (declare (ignore d)) s)
+(defmethod lookup append ((d echo-dictionary) (s string)) (declare (ignore d)) (list s))
 (setf *dictionary* (make-instance 'echo-dictionary))
 ```
 
-例えば、「あ」から始まる単語のときは、SKKの辞書を使いたいならSKK辞書を継承して以下のようにすることができます。
+例えば、SKKの辞書にEcho辞書を合成したいならSKK辞書を継承して以下のようにすることができます。
 
 ```lisp
-(defclass echo-dictionary-1 (skk-dictionary) ()) ;; skk-dicitonary はdictionaryクラスのサブクラスです。
-(defmethod lookup ((d echo-dictionary) (s string))
-  (declare (ignore d))
-  (if (char= (char s 1) #\あ)
-      (call-next-method)
-      s))
-(setf *dictionary* (make-instance 'echo-dictionary-1 :filespec #p"/path/to/dictionary"))
+(defclass echo-and-skk-dictionary (echo-dictionary skk-dictionary) ()) ;; skk-dicitonary はdictionaryクラスのサブクラスです。
+(setf *dictionary* (make-instance 'echo-and-skk-dictionary :filespec #p"/path/to/dictionary"))
 ```
 
 また、DICTIONARYクラスのサブクラスのインスタンス同士を合成するMIXED-DICTIONARYクラスを使うこともできます。
@@ -83,12 +78,14 @@ LIMEで既に定義されている辞書としては以下のクラスがあり�
         - skk-dictionary [1]
     - skk-pattern-dictionary [2]
         - skk-lisp-dictionary [1]
+    - google-input-method-dictionary [3]
     - mixed-dictionary
-    - proxy-dictionary [3]
+    - proxy-dictionary [4]
 
 1. skk-dictionaryはskk-text-dictionaryとskk-lisp-dictionaryとskk-lisp-dictionaryの３つを継承したクラスです
 2. 対応している数値変換は無変換(#0)と全角(#1)と漢数字(#2 #3 #5)です
-3. proxy-dictionaryは他のSKKサーバーと通信するためのクラスです
+3. Google日本語入力を用いた変換を行うクラスです
+4. proxy-dictionaryは他のSKKサーバーと通信するためのクラスです
 
 ## ライセンス
 GPL第三版及びそれ以降のライセンスのもとで公開された自由ソフトウェアです。

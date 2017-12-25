@@ -5,10 +5,13 @@
   :author "asciian"
   :version "0.0.0"
   :depends-on (alexandria
+               cl-ppcre
                esrap
                babel
                usocket
+               usocket-server
                jp-numeral
+               drakma
                lime/main)
   :in-order-to ((test-op (test-op lime/tests))))
 
