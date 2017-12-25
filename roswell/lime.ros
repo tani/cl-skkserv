@@ -5,7 +5,7 @@ exec ros -Q -- $0 "$@"
 |#
 (progn ;;init forms
   (ros:ensure-asdf)
-  #+quicklisp (ql:quickload '(:lime :usocket :usocket-server) :silent t)
+  #+quicklisp (ql:quickload '(:lime :usocket :usocket-server :daemon) :silent t)
   )
 
 (defpackage :ros.script.lime.3723019386
@@ -14,12 +14,19 @@ exec ros -Q -- $0 "$@"
 
 (defparameter *dictionary* (make-instance 'lime:skk-dictionary :pathname #p"./SKK-JISYO.L"))
 
+(defun server-process ()
+  (usocket:socket-server
+   "localhost" 5000
+   (lambda (stream)
+     (loop :named loop
+           :for status := (lime:handler stream *dictionary*)
+           :when (= status 0) :do (return-from loop)
+           :when (= status 5) :do (return-from server-process)))))
+
 (defun main (&rest argv)
   (declare (ignorable argv))
-  (catch :exit
-    (usocket:socket-server
-     "localhost" 5000
-     (lambda (stream)
-       (loop :until (lime:handler stream *dictionary*))))))
+  (progn
+    (daemon:daemonize :exit-parent t)
+    (unwind-protect (server-process) (daemon:exit))))
   
 ;;; vim: set ft=lisp lisp:
