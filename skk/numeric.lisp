@@ -1,11 +1,11 @@
 (in-package :cl)
-(defpackage :lime/skk/pattern
+(defpackage :lime/skk/numeric
   (:use :cl :esrap :cl-ppcre :alexandria)
   (:import-from :lime/core/dictionary dictionary convert)
   (:import-from :lime/skk/lisp lispp)
   (:import-from :lime/skk/util make-table)
-  (:export skk-pattern-dictionary patternp))
-(in-package :lime/skk/pattern)
+  (:export skk-numeric-dictionary numericp))
+(in-package :lime/skk/numeric)
 
 (defun hankaku-to-zenkaku (s)
   (flet ((hankaku-to-zenkaku-1 (c)
@@ -32,26 +32,26 @@
 
 (defrule non-digits (+ (not (character-ranges (#\0 #\9)))) (:text t))
 
-(defclass skk-pattern-dictionary (dictionary)
-  ((filespec :initarg :filespec :reader filespec)
-   (table :initarg :table :accessor table)))
+(defclass skk-numeric-dictionary (dictionary)
+  ((pathname :initarg :pathname :reader skk-numeric-dictionary-pathname)
+   (table :initarg :table :accessor skk-numeric-dictionary-table)))
 
-(defun patternp (s) (scan "#" s))
+(defun numericp (s) (scan "#" s))
 
-(defmethod initialize-instance :after ((dict skk-pattern-dictionary) &rest initargs)
+(defmethod initialize-instance :after ((d skk-numeric-dictionary) &rest initargs)
   (declare (ignore initargs))
-  (setf (table dict) (make-table (filespec dict)))
+  (setf (skk-numeric-dictionary-table d) (make-table (skk-numeric-dictionary-pathname d)))
   (maphash (lambda (key value)
-             (setf (gethash key (table dict))
-                   (remove-if-not (conjoin #'patternp (compose #'not #'lispp)) value))
-             (unless (gethash key (table dict))
-               (remhash key (table dict))))
-           (table dict)))
+             (setf (gethash key (skk-numeric-dictionary-table d))
+                   (remove-if-not (conjoin #'numericp (compose #'not #'lispp)) value))
+             (unless (gethash key (skk-numeric-dictionary-table d))
+               (remhash key (skk-numeric-dictionary-table d))))
+           (skk-numeric-dictionary-table d)))
 
-(defmethod convert append ((d skk-pattern-dictionary) (s string))
+(defmethod convert append ((d skk-numeric-dictionary) (s string))
   (let* ((arguments (parse '(+ (or digits non-digits)) s))
          (masked (regex-replace-all "[0-9]+" s "#"))
-         (candidates (gethash masked (table d))))
+         (candidates (gethash masked (skk-numeric-dictionary-table d))))
     (flet ((make-candidate (candidate)
              (let ((functions (parse '(+ (or placeholder non-placeholder)) candidate)))
                (format nil "~{~A~}" (mapcar #'funcall functions (append arguments '(nil)))))))

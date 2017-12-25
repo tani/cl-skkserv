@@ -1,9 +1,9 @@
 (in-package :cl)
-(defpackage :lime/core/server
-  (:use :cl :esrap :asdf :usocket)
+(defpackage :lime/core/handler
+  (:use :cl :esrap :asdf)
   (:import-from :lime/core/dictionary convert complete)
-  (:export server-start handler))
-(in-package :lime/core/server)
+  (:export handler))
+(in-package :lime/core/handler)
 
 (defrule disconnect-request #\0
   (:lambda (char) (list char)))
@@ -13,17 +13,20 @@
   (:lambda (char) (list char)))
 (defrule name-request #\3
   (:lambda (char) (list char)))
+(defrule complete-request (and #\4 (+ (not #\space)) #\space)
+  (:lambda (list) (list (first list) (format nil "~{~a~}" (second list)))))
 (defrule request (or disconnect-request
                      convert-request
                      version-request
-                     name-request))
+                     name-request
+                     complete-request))
 
 (defun chomp (s)
   (let ((end (or (position (code-char 13) s)
                  (position (code-char 10) s))))
     (if end (subseq s 0 end) s)))
 
-(defun handler (stream address port dictionary)
+(defun handler (stream dictionary)
   ;; http://umiushi.org/~wac/yaskkserv/#protocol
   (let* ((line (read-line stream))
          (request (parse 'request (chomp line))))
@@ -35,9 +38,3 @@
       (4 (format stream "4/~{~A/~}~%" (complete dictionary (second request)))))
     (force-output stream)
     (return-from handler nil)))
-
-(defun server-start (&key address port dictionary)
-  (socket-server
-   address port
-   (lambda (stream)
-     (loop :until (handler stream address port dictionary)))))

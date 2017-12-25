@@ -8,7 +8,7 @@
 (deftest skk-lisp-dictionary
   (testing
    "辞書の生成"
-   (ok (setf *dictionary* (make-instance 'skk-lisp-dictionary :filespec #p"./SKK-JISYO.L"))))
+   (ok (setf *dictionary* (make-instance 'skk-lisp-dictionary :pathname #p"./SKK-JISYO.L"))))
   (testing 
    "辞書の検索"
    (ok (string= "DOS/V" (first (convert *dictionary* "dosv"))))))

@@ -7,25 +7,25 @@
 (in-package :lime/skk/lisp)
 
 (defclass skk-lisp-dictionary (dictionary)
-  ((filespec :initarg :filespec :reader filespec)
-   (table :initarg :table :accessor table)))
+  ((pathname :initarg :pathname :reader skk-lisp-dictionary-pathname)
+   (table :initarg :table :accessor skk-lisp-dictionary-table)))
 
 (defun lispp (s) (scan "^\\(.*\\)$" s))
 
-(defmethod initialize-instance :after ((dict skk-lisp-dictionary) &rest initargs)
+(defmethod initialize-instance :after ((d skk-lisp-dictionary) &rest initargs)
   (declare (ignore initargs))
-  (setf (table dict) (make-table (filespec dict)))
+  (setf (skk-lisp-dictionary-table d) (make-table (skk-lisp-dictionary-pathname d)))
   (maphash (lambda (key value)
-             (setf (gethash key (table dict))
+             (setf (gethash key (skk-lisp-dictionary-table d))
                    (remove-if-not #'lispp value))
-             (unless (gethash key (table dict))
-               (remhash key (table dict))))
-           (table dict)))
+             (unless (gethash key (skk-lisp-dictionary-table d))
+               (remhash key (skk-lisp-dictionary-table d))))
+           (skk-lisp-dictionary-table d)))
 
 (defun concat (&rest s) (format nil "~{~A~}" s))
 
 (defmethod convert append ((d skk-lisp-dictionary) (s string))
-  (let* ((candidates (gethash s (table d) ""))
+  (let* ((candidates (gethash s (skk-lisp-dictionary-table d)))
          (*package* (find-package :lime/skk/lisp)))
     (labels ((octet-to-char-1 (matches digits)
                (declare (ignore matches))
@@ -35,5 +35,5 @@
       (mapcar (compose #'eval #'read-from-string #'octet-to-char) candidates))))
 
 (defmethod complete append ((d skk-lisp-dictionary) (s string))
-  (loop :for key :being :the :hash-keys :of (table d)
+  (loop :for key :being :the :hash-keys :of (skk-lisp-dictionary-table d)
         :when (scan (format nil "^~a" s) key) :collect key))
