@@ -5,24 +5,15 @@
   (:export handler))
 (in-package :lime/core/handler)
 
-(defrule disconnect-request #\0
-  (:lambda (char) (list char)))
 (defrule convert-request (and #\1 (+ (not #\space)) #\space)
-  (:lambda (list) (list (first list) (format nil "~{~a~}" (second list)))))
-(defrule version-request #\2
-  (:lambda (char) (list char)))
-(defrule name-request #\3
-  (:lambda (char) (list char)))
+  (:lambda (list) (list (parse-integer (first list)) (format nil "~{~a~}" (second list)))))
 (defrule complete-request (and #\4 (+ (not #\space)) #\space)
-  (:lambda (list) (list (first list) (format nil "~{~a~}" (second list)))))
-(defrule exit-request #\5
-  (:lambda (char) (list char)))
-(defrule request (or disconnect-request
-                     convert-request
-                     version-request
-                     name-request
+  (:lambda (list) (list (parse-integer (first list)) (format nil "~{~a~}" (second list)))))
+(defrule other-request (or #\0 #\2 #\3 #\5)
+  (:lambda (list) (list (parse-integer list))))
+(defrule request (or convert-request
                      complete-request
-                     exit-request))
+                     other-request))
 
 (defun chomp (s)
   (let ((end (or (position (code-char 13) s)
@@ -33,12 +24,10 @@
   ;; http://umiushi.org/~wac/yaskkserv/#protocol
   (let* ((line (read-line stream))
          (request (parse 'request (chomp line))))
-    (case (parse-integer (first request))
-      (0 (return-from handler t))
+    (case (first request)
       (1 (format stream "1/~{~A/~} " (convert dictionary (second request))))
       (2 (format stream "~a " (component-version (find-system :lime))))
       (3 (format stream "hostname:addr:...: "))
-      (4 (format stream "4/~{~A/~}~%" (complete dictionary (second request))))
-      (t (throw :exit 1)))
+      (4 (format stream "4/~{~A/~}~%" (complete dictionary (second request)))))
     (force-output stream)
-    (return-from handler nil)))
+    (first request)))
