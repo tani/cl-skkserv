@@ -9,8 +9,8 @@
 (in-package :lime/skk/text)
 
 (defclass skk-text-dictionary (dictionary)
-  ((pathname :initarg :pathname :reader skk-text-dictionary-pathname)
-   (table :initarg :table :accessor skk-text-dictionary-table)))
+  ((skk-text-dictionary-pathname :initarg :pathname :reader skk-text-dictionary-pathname)
+   (skk-text-dictionary-table :accessor skk-text-dictionary-table)))
 
 (defmethod initialize-instance :after ((dict skk-text-dictionary) &rest initargs)
   (declare (ignore initargs))

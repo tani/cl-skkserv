@@ -12,13 +12,14 @@ exec ros -Q -- $0 "$@"
   (:use :cl))
 (in-package :ros.script.lime.3723019386)
 
-(defparameter *dictionary* (make-instance 'lime:skk-dictionary :filespec #p"./SKK-JISYO.L"))
+(defparameter *dictionary* (make-instance 'lime:skk-dictionary :pathname #p"./SKK-JISYO.L"))
 
 (defun main (&rest argv)
   (declare (ignorable argv))
-  (usocket:socket-server
-   "localhost" 5000
-   (lambda (stream)
-     (loop :until (lime:handler stream *dictionary*)))))
-                                
+  (catch :exit
+    (usocket:socket-server
+     "localhost" 5000
+     (lambda (stream)
+       (loop :until (lime:handler stream *dictionary*))))))
+  
 ;;; vim: set ft=lisp lisp:
