@@ -1,6 +1,8 @@
 <div style="text-align: center">
 	<img src="https://openclipart.org/image/2400px/svg_to_png/273616/Lime.png" height="100px"/> <br>
-	<img src="https://img.shields.io/badge/amazon-wishlist-orange.svg" />
+	<a href="https://www.amazon.co.jp/hz/wishlist/ls/9XB2O6O7JULV">
+		<img src="https://img.shields.io/badge/amazon-wishlist-orange.svg" />
+	</a>
 	<h1>LIME<br><small>Lisp Input Method Editor</small></h1>
 </div>
 
