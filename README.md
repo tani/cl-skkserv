@@ -1,7 +1,7 @@
 <div style="text-align: center">
 	<img src="https://openclipart.org/image/2400px/svg_to_png/273616/Lime.png" height="100px"/> <br>
-	<h1>LIME<br><small>Lisp Input Method Editor</small></h1>
 	<img src="https://img.shields.io/badge/amazon-wishlist-orange.svg" />
+	<h1>LIME<br><small>Lisp Input Method Editor</small></h1>
 </div>
 
 ## 概要
