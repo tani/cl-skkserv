@@ -11,4 +11,4 @@
    (ok (setq *dictionary* (make-instance 'skk-text-dictionary :filespec #p"./SKK-JISYO.L"))))
   (testing 
    "辞書の検索"
-   (ok (string= "見" (first (lookup *dictionary* "みr"))))))
+   (ok (string= "見" (first (convert *dictionary* "みr"))))))

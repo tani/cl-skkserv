@@ -1,8 +1,8 @@
 (in-package :cl)
 (defpackage :lime/skk/lisp
-  (:use :cl :cl-ppcre :esrap :alexandria
-        :lime/core/dictionary
-        :lime/skk/util)
+  (:use :cl :cl-ppcre :esrap :alexandria)
+  (:import-from :lime/core/dictionary dictionary convert)
+  (:import-from :lime/skk/util make-table)
   (:export skk-lisp-dictionary lispp))
 (in-package :lime/skk/lisp)
 
@@ -24,7 +24,7 @@
 
 (defun concat (&rest s) (format nil "~{~A~}" s))
 
-(defmethod lookup ((d skk-lisp-dictionary) (s string))
+(defmethod convert append ((d skk-lisp-dictionary) (s string))
   (let* ((candidates (gethash s (table d) ""))
          (*package* (find-package :lime/skk/lisp)))
     (labels ((octet-to-char-1 (matches digits)

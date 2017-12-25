@@ -1,10 +1,10 @@
 (in-package :cl)
 (defpackage :lime/skk/text
-  (:use :cl :cl-ppcre :alexandria
-        :lime/core/dictionary
-        :lime/skk/pattern
-        :lime/skk/lisp
-        :lime/skk/util)
+  (:use :cl :cl-ppcre :alexandria)
+  (:import-from :lime/core/dictionary dictionary convert)
+  (:import-from :lime/skk/lisp lispp)
+  (:import-from :lime/skk/pattern patternp)
+  (:import-from :lime/skk/util make-table)
   (:export skk-text-dictionary))
 (in-package :lime/skk/text)
 
@@ -22,5 +22,5 @@
                (remhash key (table dict))))
            (table dict)))
 
-(defmethod lookup ((d skk-text-dictionary) (s string))
+(defmethod convert append ((d skk-text-dictionary) (s string))
   (gethash s (table d) ""))
