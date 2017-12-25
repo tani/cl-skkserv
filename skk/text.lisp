@@ -17,7 +17,7 @@
   (setf (skk-text-dictionary-table dict) (make-table (skk-text-dictionary-pathname dict)))
   (maphash (lambda (key value)
              (setf (gethash key (skk-text-dictionary-table dict))
-                   (remove-if (conjoin #'numericp #'lispp) value))
+                   (remove-if (disjoin #'numericp #'lispp) value))
              (unless (gethash key (skk-text-dictionary-table dict))
                (remhash key (skk-text-dictionary-table dict))))
            (skk-text-dictionary-table dict)))
