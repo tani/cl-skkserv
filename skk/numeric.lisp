@@ -33,8 +33,8 @@
 (defrule non-digits (+ (not (character-ranges (#\0 #\9)))) (:text t))
 
 (defclass skk-numeric-dictionary (dictionary)
-  ((pathname :initarg :pathname :reader skk-numeric-dictionary-pathname)
-   (table :initarg :table :accessor skk-numeric-dictionary-table)))
+  ((skk-numeric-dictionary-pathname :initarg :pathname :reader skk-numeric-dictionary-pathname)
+   (skk-numeric-dictionary-table :accessor skk-numeric-dictionary-table)))
 
 (defun numericp (s) (scan "#" s))
 

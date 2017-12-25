@@ -7,8 +7,8 @@
 (in-package :lime/skk/lisp)
 
 (defclass skk-lisp-dictionary (dictionary)
-  ((pathname :initarg :pathname :reader skk-lisp-dictionary-pathname)
-   (table :initarg :table :accessor skk-lisp-dictionary-table)))
+  ((skk-lisp-dictionary-pathname :initarg :pathname :reader skk-lisp-dictionary-pathname)
+   (skk-lisp-dictionary-table :accessor skk-lisp-dictionary-table)))
 
 (defun lispp (s) (scan "^\\(.*\\)$" s))
 
