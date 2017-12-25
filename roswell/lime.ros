@@ -5,17 +5,20 @@ exec ros -Q -- $0 "$@"
 |#
 (progn ;;init forms
   (ros:ensure-asdf)
-  #+quicklisp (ql:quickload '(:lime) :silent t)
+  #+quicklisp (ql:quickload '(:lime :usocket :usocket-server) :silent t)
   )
 
 (defpackage :ros.script.lime.3723019386
-  (:use :cl :lime))
+  (:use :cl))
 (in-package :ros.script.lime.3723019386)
+
+(defparameter *dictionary* (make-instance 'lime:skk-dictionary :filespec #p"./SKK-JISYO.L"))
 
 (defun main (&rest argv)
   (declare (ignorable argv))
-  (server-start
-   :address "localhost"
-   :port 5000
-   :dictionary (make-instance 'skk-dictionary :filespec #p"./SKK-JISYO.L")))
+  (usocket:socket-server
+   "localhost" 5000
+   (lambda (stream)
+     (loop :until (lime:handler stream *dictionary*)))))
+                                
 ;;; vim: set ft=lisp lisp:

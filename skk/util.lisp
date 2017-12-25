@@ -16,9 +16,9 @@
 (defun remove-comment (s)
   (regex-replace ";.*$" s ""))
 
-(defun make-table (filespec)
+(defun make-table (pathname)
   "create hash-table from SKK-JISYO"
-  (let* ((octets (read-file-into-byte-vector filespec))
+  (let* ((octets (read-file-into-byte-vector pathname))
          (string (babel:octets-to-string octets :encoding :eucjp)))
     (with-input-from-string (stream string)
       (do* ((table (make-hash-table :test 'equalp))

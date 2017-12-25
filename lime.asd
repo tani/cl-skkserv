@@ -20,7 +20,7 @@
   :depends-on (rove
                lime
                lime/tests/skk/text
-               lime/tests/skk/pattern
+               lime/tests/skk/numeric
                lime/tests/skk/lisp)
   :perform (test-op (o c) (symbol-call :rove '#:run c)))
                     
