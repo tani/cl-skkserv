@@ -29,7 +29,11 @@ exec ros -Q -- $0 "$@"
   (cond ((string= (first argv) "start")
          (daemon:daemonize :exit-parent t)
          (unwind-protect (serve) (daemon:exit)))
+        ((string= (first argv) "debug") (serve))
         ((string= (first argv) "stop") (stop-process))
-        ((string= (first argv) "debug") (serve))))
+        ((string= (first argv) "handle") 
+         (multiple-value-bind (status response)
+             (lime:handle (second argv) *dictionary*)
+           (format t "~a, ~a" status response)))))
 
 ;;; vim: set ft=lisp lisp:

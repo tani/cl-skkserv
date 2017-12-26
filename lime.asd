@@ -16,10 +16,10 @@
 
 (defsystem lime/tests
   :class :package-inferred-system
-  :depends-on (rove
+  :depends-on (1am
                lime
                lime/tests/skk/text
                lime/tests/skk/numeric
                lime/tests/skk/lisp)
-  :perform (test-op (o c) (symbol-call :rove '#:run c)))
+  :perform (test-op (o c) (symbol-call :1am '#:run)))
                     
