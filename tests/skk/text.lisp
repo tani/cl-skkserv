@@ -8,7 +8,7 @@
 (defparameter *dictionary*
   (make-instance 'skk-text-dictionary :pathname #p"./SKK-JISYO.L"))
 
-(test skk-text-dictionary
+(test test-skk-text-dictionary
       ;;検索
       (is (string= "見" (first (convert *dictionary* "みr"))))
       ;;補完

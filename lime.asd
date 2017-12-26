@@ -17,8 +17,11 @@
 (defsystem lime/tests
   :class :package-inferred-system
   :depends-on (1am
+               flexi-streams
                lime
                lime/tests/core/mixed
+               lime/tests/core/handler
+               lime/tests/core/process
                lime/tests/skk/text
                lime/tests/skk/numeric
                lime/tests/skk/lisp)

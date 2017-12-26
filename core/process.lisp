@@ -2,7 +2,7 @@
 (defpackage :lime/core/process
   (:use :cl :usocket :babel)
   (:import-from :lime/core/handler handle)
-  (:export process))
+  (:export process read-request write-response))
 (in-package :lime/core/process)
 
 (defun read-request (stream)

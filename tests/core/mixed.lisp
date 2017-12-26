@@ -13,6 +13,10 @@
 (defparameter *mixed*
   (make-instance 'mixed-dictionary :dictionaries (list *text* *numeric*)))
 
-(test mixed-dictionary
-      (is (equal (convert *mixed* "12") (append (convert *text* "12") (convert *numeric* "12"))))
-      (is (equal (complete *mixed* "12") (append (complete *text* "12") (complete *numeric* "12")))))
+(test test-mixed-dictionary
+      ;;変換
+      (is (equalp (convert *mixed* "12")
+                  (append (convert *text* "12") (convert *numeric* "12"))))
+      ;;補完
+      (is (equalp (complete *mixed* "12")
+                  (append (complete *text* "12") (complete *numeric* "12")))))
