@@ -2,7 +2,7 @@
 (defpackage :lime/core/handler
   (:use :cl :esrap :asdf)
   (:import-from :lime/core/dictionary convert complete)
-  (:export handler))
+  (:export handle))
 (in-package :lime/core/handler)
 
 (defrule convert-request (and #\1 (+ (not #\space)) #\space)
@@ -15,19 +15,15 @@
                      complete-request
                      other-request))
 
-(defun chomp (s)
-  (let ((end (or (position (code-char 13) s)
-                 (position (code-char 10) s))))
-    (if end (subseq s 0 end) s)))
-
-(defun handler (stream dictionary)
+(defun handle (string dictionary)
   ;; http://umiushi.org/~wac/yaskkserv/#protocol
-  (let* ((line (read-line stream))
-         (request (parse 'request (chomp line))))
-    (case (first request)
-      (1 (format stream "1/~{~A/~} " (convert dictionary (second request))))
-      (2 (format stream "~a " (component-version (find-system :lime))))
-      (3 (format stream "hostname:addr:...: "))
-      (4 (format stream "4/~{~A/~}~%" (complete dictionary (second request)))))
-    (force-output stream)
-    (first request)))
+  (let ((request (parse 'request string)))
+    (values
+     (first request)
+     (case (first request)
+       (1 (let ((result (convert dictionary (second request))))
+            (format nil "~A/~{~A/~}~%" (if result 1 4) result)))
+       (2 (format stream "~a " (component-version (find-system :lime))))
+       (3 (format stream "hostname:addr:...: "))
+       (4 (let ((result (complete dictionary (second request))))
+            (format nil "1/~{~A/~}~%" result)))))))

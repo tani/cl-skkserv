@@ -2,7 +2,8 @@
 (defpackage :lime/main
   (:nicknames :lime)
   (:use :cl :lime/core/main :lime/skk/main)
-  (:export handler
+  (:export handle
+           process
            dictionary
            lookup
            complete
