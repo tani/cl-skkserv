@@ -5,11 +5,10 @@
         :lime/skk/text))
 (in-package :lime/tests/skk/text)
 
-(defparameter *dictionary* nil)
+(defparameter *dictionary*
+  (make-instance 'skk-text-dictionary :pathname #p"./SKK-JISYO.L"))
 
-(test skk-textdictionary
-      ;;生成
-      (is (setq *dictionary* (make-instance 'skk-text-dictionary :pathname #p"./SKK-JISYO.L")))
+(test skk-text-dictionary
       ;;検索
       (is (string= "見" (first (convert *dictionary* "みr"))))
       ;;補完

@@ -18,6 +18,7 @@
   :class :package-inferred-system
   :depends-on (1am
                lime
+               lime/tests/core/mixed
                lime/tests/skk/text
                lime/tests/skk/numeric
                lime/tests/skk/lisp)
