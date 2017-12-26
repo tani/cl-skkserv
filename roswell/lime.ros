@@ -13,20 +13,23 @@ exec ros -Q -- $0 "$@"
 (in-package :ros.script.lime.3723019386)
 
 (defparameter *dictionary* (make-instance 'lime:skk-dictionary :pathname #p"./SKK-JISYO.L"))
+(defparameter *encoding* :utf-8)
 
-(defun server-process ()
-  (usocket:socket-server
-   "localhost" 5000
-   (lambda (stream)
-     (loop :named loop
-           :for status := (lime:handler stream *dictionary*)
-           :when (= status 0) :do (return-from loop)
-           :when (= status 5) :do (return-from server-process)))))
+(defun serve ()
+  (catch :exit
+    (usocket:socket-server
+     "localhost" 5000 #'lime:process
+     (list *dictionary* *encoding*)
+     :element-type '(unsigned-byte 8))))
+
+(defun stop-process ())
 
 (defun main (&rest argv)
   (declare (ignorable argv))
-  (progn
-    (daemon:daemonize :exit-parent t)
-    (unwind-protect (server-process) (daemon:exit))))
-  
+  (cond ((string= (first argv) "start")
+         (daemon:daemonize :exit-parent t)
+         (unwind-protect (serve) (daemon:exit)))
+        ((string= (first argv) "stop") (stop-process))
+        ((string= (first argv) "debug") (serve))))
+
 ;;; vim: set ft=lisp lisp:
