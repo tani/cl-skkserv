@@ -1,6 +1,8 @@
 (in-package :cl-user)
 (defpackage :lime/tests/skk/lisp
-  (:use :cl :1am :lime/skk/lisp :lime/core/dictionary))
+  (:use :cl :1am
+        :lime/core/main
+        :lime/skk/lisp))
 (in-package :lime/tests/skk/lisp)
 
 (defparameter *dictionary* nil)
