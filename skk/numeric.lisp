@@ -1,4 +1,4 @@
-(in-package :cl)
+(in-package :cl-user)
 (defpackage :lime/skk/numeric
   (:use :cl :esrap :cl-ppcre :alexandria)
   (:import-from :lime/core/main dictionary convert)

@@ -1,4 +1,4 @@
-(in-package :cl)
+(in-package :cl-user)
 (defpackage :lime/tests/skk/numeric
   (:use :cl :1am :lime/skk/numeric :lime/core/dictionary))
 (in-package :lime/tests/skk/numeric)

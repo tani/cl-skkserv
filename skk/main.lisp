@@ -1,4 +1,4 @@
-(in-package :cl)
+(in-package :cl-user)
 (defpackage :lime/skk/main
   (:nicknames :lime/skk)
   (:use :cl)

@@ -1,4 +1,4 @@
-(in-package :cl)
+(in-package :cl-user)
 (defpackage :lime/core/dictionary
   (:use :cl)
   (:export dictionary convert complete))
