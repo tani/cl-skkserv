@@ -6,7 +6,10 @@
 (defparameter *dictionary* nil)
 
 (test skk-lisp-dictionary
-      ;;辞書の生成
+      ;;生成
       (is (setq *dictionary* (make-instance 'skk-lisp-dictionary :pathname #p"./SKK-JISYO.L")))
-      ;;辞書の検索
-      (is (string= "DOS/V" (first (convert *dictionary* "dosv")))))
+      ;;検索
+      (is (string= "DOS/V" (first (convert *dictionary* "dosv"))))
+      ;;補完
+      (is (string= "dosv" (first (complete *dictionary* "dosv")))))
+

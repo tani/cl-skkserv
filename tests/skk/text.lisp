@@ -6,7 +6,9 @@
 (defparameter *dictionary* nil)
 
 (test skk-textdictionary
-      ;;辞書の生成
+      ;;生成
       (is (setq *dictionary* (make-instance 'skk-text-dictionary :pathname #p"./SKK-JISYO.L")))
-      ;;辞書の検索
-      (is (string= "見" (first (convert *dictionary* "みr")))))
+      ;;検索
+      (is (string= "見" (first (convert *dictionary* "みr"))))
+      ;;補完
+      (is (string= "みわたs" (first (complete *dictionary* "み")))))
