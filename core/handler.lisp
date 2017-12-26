@@ -1,4 +1,4 @@
-(in-package :cl)
+(in-package :cl-user)
 (defpackage :lime/core/handler
   (:use :cl :esrap :asdf)
   (:import-from :lime/core/dictionary convert complete)

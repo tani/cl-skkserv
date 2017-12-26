@@ -1,4 +1,4 @@
-(in-package :cl)
+(in-package :cl-user)
 (defpackage :lime/skk/lisp
   (:use :cl :cl-ppcre :esrap :alexandria)
   (:import-from :lime/core/main dictionary convert complete)
