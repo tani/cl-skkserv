@@ -1,7 +1,7 @@
 (in-package :cl)
 (defpackage :lime/skk/text
   (:use :cl :cl-ppcre :alexandria)
-  (:import-from :lime/core/dictionary dictionary convert)
+  (:import-from :lime/core/dictionary dictionary convert complete)
   (:import-from :lime/skk/lisp lispp)
   (:import-from :lime/skk/numeric numericp)
   (:import-from :lime/skk/util make-table)
@@ -27,5 +27,4 @@
 
 (defmethod complete append ((d skk-text-dictionary) (s string))
   (loop :for key :being :the :hash-keys :of (skk-text-dictionary-table d)
-        :do (print (list (format nil "^~a" s) key))
         :when (scan (format nil "^~a" s) key) :collect key))

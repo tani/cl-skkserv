@@ -1,14 +1,12 @@
 (in-package :cl)
 (defpackage :lime/tests/skk/lisp
-  (:use :cl :rove :lime/skk/lisp :lime/core/dictionary))
+  (:use :cl :1am :lime/skk/lisp :lime/core/dictionary))
 (in-package :lime/tests/skk/lisp)
 
 (defparameter *dictionary* nil)
 
-(deftest skk-lisp-dictionary
-  (testing
-   "辞書の生成"
-   (ok (setf *dictionary* (make-instance 'skk-lisp-dictionary :pathname #p"./SKK-JISYO.L"))))
-  (testing 
-   "辞書の検索"
-   (ok (string= "DOS/V" (first (convert *dictionary* "dosv"))))))
+(test skk-lisp-dictionary
+      ;;辞書の生成
+      (is (setq *dictionary* (make-instance 'skk-lisp-dictionary :pathname #p"./SKK-JISYO.L")))
+      ;;辞書の検索
+      (is (string= "DOS/V" (first (convert *dictionary* "dosv")))))
