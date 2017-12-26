@@ -14,11 +14,13 @@ exec ros -Q -- $0 "$@"
 
 (defparameter *dictionary* (make-instance 'lime:skk-dictionary :pathname #p"./SKK-JISYO.L"))
 (defparameter *encoding* :utf-8)
+(defparameter *address* "localhost")
+(defparameter *port* 5000)
 
 (defun serve ()
   (catch :exit
     (usocket:socket-server
-     "localhost" 5000 #'lime:process
+     *address* *port* #'lime:process
      (list *dictionary* *encoding*)
      :element-type '(unsigned-byte 8))))
 
@@ -30,7 +32,10 @@ exec ros -Q -- $0 "$@"
          (daemon:daemonize :exit-parent t)
          (unwind-protect (serve) (daemon:exit)))
         ((string= (first argv) "debug") (serve))
-        ((string= (first argv) "stop") (stop-process))
+        ((string= (first argv) "stop")
+         (usocket:with-client-socket (socket stream *address* *port*)
+           (format stream "5")
+           (force-output stream)))
         ((string= (first argv) "handle") 
          (multiple-value-bind (status response)
              (lime:handle (second argv) *dictionary*)
