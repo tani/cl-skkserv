@@ -1,7 +1,7 @@
 (in-package :cl)
 (defpackage :lime/skk/numeric
   (:use :cl :esrap :cl-ppcre :alexandria)
-  (:import-from :lime/core/dictionary dictionary convert)
+  (:import-from :lime/core/main dictionary convert)
   (:import-from :lime/skk/lisp lispp)
   (:import-from :lime/skk/util make-table)
   (:export skk-numeric-dictionary numericp))
