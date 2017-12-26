@@ -1,7 +1,10 @@
 (in-package :cl)
 (defpackage :lime/main
   (:nicknames :lime)
-  (:use :cl :lime/core/main :lime/skk/main)
+  (:use :cl
+        :lime/core/main
+        :lime/skk/main
+        :lime/mixed/main)
   (:export handle
            process
            dictionary

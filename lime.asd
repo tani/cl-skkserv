@@ -19,11 +19,11 @@
   :depends-on (1am
                flexi-streams
                lime
-               lime/tests/core/mixed
                lime/tests/core/handler
                lime/tests/core/process
                lime/tests/skk/text
                lime/tests/skk/numeric
-               lime/tests/skk/lisp)
+               lime/tests/skk/lisp
+               lime/tests/mixed/main)
   :perform (test-op (o c) (symbol-call :1am '#:run)))
                     

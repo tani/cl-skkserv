@@ -2,8 +2,8 @@
 (defpackage :lime/tests/core/mixed
   (:use :cl :1am 
         :lime/skk/main
-        :lime/core/dictionary
-        :lime/core/mixed))
+        :lime/core/main
+        :lime/mixed/main))
 (in-package :lime/tests/core/mixed)
 
 (defparameter *text*
