@@ -5,11 +5,10 @@
         :lime/skk/lisp))
 (in-package :lime/tests/skk/lisp)
 
-(defparameter *dictionary* nil)
+(defparameter *dictionary* 
+  (make-instance 'skk-lisp-dictionary :pathname #p"./SKK-JISYO.L"))
 
 (test skk-lisp-dictionary
-      ;;生成
-      (is (setq *dictionary* (make-instance 'skk-lisp-dictionary :pathname #p"./SKK-JISYO.L")))
       ;;検索
       (is (string= "DOS/V" (first (convert *dictionary* "dosv"))))
       ;;補完
