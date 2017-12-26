@@ -1,7 +1,7 @@
 (in-package :cl)
 (defpackage :lime/skk/text
   (:use :cl :cl-ppcre :alexandria)
-  (:import-from :lime/core/dictionary dictionary convert complete)
+  (:import-from :lime/core/main dictionary convert complete)
   (:import-from :lime/skk/lisp lispp)
   (:import-from :lime/skk/numeric numericp)
   (:import-from :lime/skk/util make-table)

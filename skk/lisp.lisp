@@ -1,7 +1,7 @@
 (in-package :cl)
 (defpackage :lime/skk/lisp
   (:use :cl :cl-ppcre :esrap :alexandria)
-  (:import-from :lime/core/dictionary dictionary convert complete)
+  (:import-from :lime/core/main dictionary convert complete)
   (:import-from :lime/skk/util make-table)
   (:export skk-lisp-dictionary lispp))
 (in-package :lime/skk/lisp)
