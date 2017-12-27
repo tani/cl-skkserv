@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/bootstrap-honoka@3.3.7-a/dist/css/bootstrap.min.css,npm/highlight.js@9.12.0/styles/tomorrow.min.css">
+    <script src="https://cdn.jsdelivr.net/combine/npm/vue@2.5.13,npm/vue-markdown@2.2.4/dist/vue-markdown.min.js,npm/domurl@2.1.7,gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js,gh/highlightjs/cdn-release@9.12.0/build/languages/lisp.min.js"></script>
+    <title>cl-skkserv</title>
+    <style>
+        header, footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70px;
+            background: rgb(166, 211, 247);
+        }
+        main {
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <h1>cl-skkserv</h1>
+    </header>
+    <main id="content" class="container">
+        <vue-markdown v-bind:source="source"></vue-markdown>
+    </main>
+    <footer class="container">
+        <p>Copyright &copy; 2017 asciian All Rights Reserved.</p>
+    </footer>
+    <script>
+        (async () => {
+            const response = await fetch((new Url).query.source || 'README.md');
+            const text = await response.text();
+            Vue.use(VueMarkdown);
+            const content = new Vue({
+                el: '#content',
+                data: { source: text },
+                mounted: () => document.querySelectorAll('pre code').forEach(hljs.highlightBlock)
+            });
+        })();
+    </script>
+</body>
+</html>
