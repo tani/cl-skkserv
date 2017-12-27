@@ -11,6 +11,8 @@
                jp-numeral
                usocket
                drakma
+               yason
+               flex-stream
                lime/main)
   :in-order-to ((test-op (test-op lime/tests))))
 
@@ -26,4 +28,3 @@
                lime/tests/skk/lisp
                lime/tests/mixed/main)
   :perform (test-op (o c) (symbol-call :1am '#:run)))
-                    
