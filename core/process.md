@@ -1,10 +1,9 @@
-(in-package :cl-user)
-(defpackage :cl-skkserv/core/process
-  (:use :cl :usocket :babel)
-  (:import-from :cl-skkserv/core/handler handle)
-  (:export process read-request write-response))
-(in-package :cl-skkserv/core/process)
+    (in-package :cl-skkserv/core)
+    (in-readtable :papyrus)
 
+# プロセス
+
+```lisp
 (defun read-request (stream)
   (loop :for b := (read-byte stream)
         :for c := (code-char b)
@@ -23,7 +22,9 @@
 (defun write-response (stream response)
   (write-sequence response stream)
   (force-output stream))
+```
 
+```lisp
 (defun process (stream dictionary encoding)
   (loop :for request := (octets-to-string (read-request stream) :encoding encoding)
         :for (status response) := (multiple-value-list (handle request dictionary))
@@ -32,3 +33,4 @@
            (throw :exit 1)
         :else :do
            (write-response stream (string-to-octets response :encoding encoding))))
+```

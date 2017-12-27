@@ -2,40 +2,74 @@
   ((type :initform "md")))
 
 (defsystem cl-skkserv
-  :class :package-inferred-system
   :description "skkserv for Common Lisp"
   :license "GPLv3"
   :author "asciian"
   :version "0.0.0"
-  :depends-on (alexandria
-               cl-ppcre
-               esrap
-               babel
-               jp-numeral
-               usocket
-               drakma
-               flexi-streams
-               yason
-               papyrus
-               named-readtables
-               trivial-download
-               cl-skkserv/core/main
-               cl-skkserv/skk/main
-               cl-skkserv/google/main
-               cl-skkserv/mixed/main
-               cl-skkserv/proxy/main
-               cl-skkserv/user/main)
+  :depends-on (cl-skkserv/core
+               cl-skkserv/skk
+               cl-skkserv/mixed
+               cl-skkserv/proxy
+               cl-skkserv/google
+               cl-skkserv/user)
   :in-order-to ((test-op (test-op cl-skkserv/tests))))
 
+(defsystem cl-skkserv/core
+  :depends-on (alexandria esrap babel papyrus named-readtables)
+  :serial t
+  :components ((:module "core"
+                :components
+                ((:papyrus "index")
+                 (:papyrus "dictionary")
+                 (:papyrus "handler")
+                 (:papyrus "process")))))
+
+(defsystem cl-skkserv/skk
+  :depends-on (alexandria cl-ppcre esrap babel jp-numeral papyrus named-readtables cl-skkserv/core)
+  :serial t
+  :components ((:module "skk"
+                :components
+                ((:papyrus "index")
+                 (:papyrus "util")
+                 (:papyrus "lisp")
+                 (:papyrus "numeric")
+                 (:papyrus "text")
+                 (:papyrus "skk")))))
+
+(defsystem cl-skkserv/mixed
+  :depends-on (papyrus named-readtables cl-skkserv/core)
+  :serial t
+  :components ((:module "mixed"
+                :components
+                ((:papyrus "index")))))
+
+(defsystem cl-skkserv/google
+  :depends-on (papyrus named-readtables cl-skkserv/core)
+  :serial t
+  :components ((:module "mixed"
+                :components
+                ((:papyrus "index")))))
+
+(defsystem cl-skkserv/proxy
+  :depends-on (papyrus named-readtables cl-skkserv/core)
+  :serial t
+  :components ((:module "mixed"
+                :components
+                ((:papyrus "index")))))
+
+(defsystem cl-skkserv/user
+  :depends-on (papyrus named-readtables cl-skkserv/core)
+  :serial t
+  :components ((:module "mixed"
+                :components
+                ((:papyrus "index")))))
+
 (defsystem cl-skkserv/tests
-  :class :package-inferred-system
-  :depends-on (1am
-               flexi-streams
-               cl-skkserv
-               cl-skkserv/tests/core/handler
-               cl-skkserv/tests/core/process
-               cl-skkserv/tests/skk/text
-               cl-skkserv/tests/skk/numeric
-               cl-skkserv/tests/skk/lisp
-               cl-skkserv/tests/mixed/main)
+  :depends-on (1am flexi-streams cl-skkserv)
+  :serial t
+  :components ((:module "tests"
+                :components 
+                ((:file "core")
+                 (:file "skk")
+                 (:file "mixed"))))
   :perform (test-op (o c) (symbol-call :1am '#:run)))

@@ -1,18 +1,17 @@
-(in-package :cl-user)
-(defpackage :cl-skkserv/skk/numeric
-  (:use :cl :esrap :cl-ppcre :alexandria)
-  (:import-from :cl-skkserv/core/main dictionary convert)
-  (:import-from :cl-skkserv/skk/lisp lispp)
-  (:import-from :cl-skkserv/skk/util make-table)
-  (:export skk-numeric-dictionary numericp))
-(in-package :cl-skkserv/skk/numeric)
+    (in-package :cl-skkserv/skk)
+    (in-readtable :papyrus)
 
+# 数値辞書
+
+```lisp
 (defun hankaku-to-zenkaku (s)
   (flet ((hankaku-to-zenkaku-1 (c)
            (princ-to-string
             (char "０１２３４５６７８９" (parse-integer c)))))
     (regex-replace-all "\\d" s #'hankaku-to-zenkaku-1 :simple-calls t)))
+```
 
+```lisp
 (defrule placeholder (and #\# (? (character-ranges (#\0 #\9))))
   (:lambda (list)
     ;; http://www.quruli.ivory.ne.jp/document/ddskk_14.2/skk_4.html#g_t_00e6_0095_00b0_00e5_0080_00a4_00e5_00a4_0089_00e6_008f_009b
@@ -31,13 +30,19 @@
 (defrule digits (+ (character-ranges (#\0 #\9))) (:text t))
 
 (defrule non-digits (+ (not (character-ranges (#\0 #\9)))) (:text t))
+```
 
+```lisp
 (defclass skk-numeric-dictionary (dictionary)
   ((skk-numeric-dictionary-pathname :initarg :pathname :reader skk-numeric-dictionary-pathname)
    (skk-numeric-dictionary-table :accessor skk-numeric-dictionary-table)))
+```
 
+```lisp
 (defun numericp (s) (scan "#" s))
+```
 
+```lisp
 (defmethod initialize-instance :after ((d skk-numeric-dictionary) &rest initargs)
   (declare (ignore initargs))
   (setf (skk-numeric-dictionary-table d) (make-table (skk-numeric-dictionary-pathname d)))
@@ -47,7 +52,9 @@
              (unless (gethash key (skk-numeric-dictionary-table d))
                (remhash key (skk-numeric-dictionary-table d))))
            (skk-numeric-dictionary-table d)))
+```
 
+```lisp
 (defmethod convert append ((d skk-numeric-dictionary) (s string))
   (let* ((arguments (parse '(+ (or digits non-digits)) s))
          (masked (regex-replace-all "[0-9]+" s "#"))
@@ -56,3 +63,4 @@
              (let ((functions (parse '(+ (or placeholder non-placeholder)) candidate)))
                (format nil "~{~A~}" (mapcar #'funcall functions (append arguments '(nil)))))))
       (mapcar #'make-candidate candidates))))
+```
