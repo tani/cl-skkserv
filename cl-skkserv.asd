@@ -1,3 +1,6 @@
+(defclass papyrus (cl-source-file)
+  ((type :initform "md")))
+
 (defsystem cl-skkserv
   :class :package-inferred-system
   :description "skkserv for Common Lisp"
@@ -13,6 +16,8 @@
                drakma
                flexi-streams
                yason
+               papyrus
+               named-readtables
                trivial-download
                cl-skkserv/core/main
                cl-skkserv/skk/main
