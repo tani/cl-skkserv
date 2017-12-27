@@ -1,9 +1,9 @@
 (in-package :cl-user)
-(defpackage :lime/tests/skk/text
+(defpackage :cl-skkserv/tests/skk/text
   (:use :cl :1am
-        :lime/core/main
-        :lime/skk/text))
-(in-package :lime/tests/skk/text)
+        :cl-skkserv/core/main
+        :cl-skkserv/skk/text))
+(in-package :cl-skkserv/tests/skk/text)
 
 (defparameter *dictionary*
   (make-instance 'skk-text-dictionary :pathname #p"./data/SKK-JISYO.L"))

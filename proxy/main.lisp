@@ -1,10 +1,10 @@
 (in-package :cl-user)
-(defpackage :lime/proxy/main
-  (:nicknames :lime/proxy)
+(defpackage :cl-skkserv/proxy/main
+  (:nicknames :cl-skkserv/proxy :skkserv/proxy)
   (:use :cl :usocket :babel :cl-ppcre)
-  (:import-from :lime/core/main dictionary convert complete)
+  (:import-from :cl-skkserv/core/main dictionary convert complete)
   (:export proxy-dictionary))
-(in-package :lime/proxy/main)
+(in-package :cl-skkserv/proxy/main)
 
 (defclass proxy-dictionary (dictioanry)
   ((address :initarg :address :reader address-of)

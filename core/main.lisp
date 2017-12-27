@@ -1,13 +1,13 @@
 (in-package :cl-user)
-(defpackage :lime/core/main
-  (:nicknames :lime/core :lime)
+(defpackage :cl-skkserv/core/main
+  (:nicknames :cl-skkserv/core :skkserv/core :cl-skkserv :skkserv)
   (:use :cl)
-  (:import-from :lime/core/dictionary dictionary convert complete)
-  (:import-from :lime/core/handler handle)
-  (:import-from :lime/core/process process)
+  (:import-from :cl-skkserv/core/dictionary dictionary convert complete)
+  (:import-from :cl-skkserv/core/handler handle)
+  (:import-from :cl-skkserv/core/process process)
   (:export dictionary
            convert
            complete
            handle
            process))
-(in-package :lime/core/main)
+(in-package :cl-skkserv/core/main)

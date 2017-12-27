@@ -1,9 +1,9 @@
 (in-package :cl-user)
-(defpackage :lime/core/process
+(defpackage :cl-skkserv/core/process
   (:use :cl :usocket :babel)
-  (:import-from :lime/core/handler handle)
+  (:import-from :cl-skkserv/core/handler handle)
   (:export process read-request write-response))
-(in-package :lime/core/process)
+(in-package :cl-skkserv/core/process)
 
 (defun read-request (stream)
   (loop :for b := (read-byte stream)

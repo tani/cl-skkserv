@@ -1,8 +1,8 @@
 (in-package :cl-user)
-(defpackage :lime/tests/core/process
+(defpackage :cl-skkserv/tests/core/process
   (:use :cl :flexi-streams :1am 
-        :lime/core/process))
-(in-package :lime/tests/core/process)
+        :cl-skkserv/core/process))
+(in-package :cl-skkserv/tests/core/process)
 
 (test test-read-request
       (is (with-input-from-sequence (stream (string-to-octets "1a "))

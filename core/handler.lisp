@@ -1,9 +1,9 @@
 (in-package :cl-user)
-(defpackage :lime/core/handler
+(defpackage :cl-skkserv/core/handler
   (:use :cl :esrap :asdf)
-  (:import-from :lime/core/dictionary convert complete)
+  (:import-from :cl-skkserv/core/dictionary convert complete)
   (:export handle))
-(in-package :lime/core/handler)
+(in-package :cl-skkserv/core/handler)
 
 (defrule convert-request (and #\1 (+ (not #\space)) #\space)
   (:lambda (list) (list (parse-integer (first list)) (format nil "~{~a~}" (second list)))))
@@ -23,7 +23,7 @@
      (case (first request)
        (1 (let ((result (convert dictionary (second request))))
             (format nil "~A/~{~A/~}~%" (if result 1 4) result)))
-       (2 (format nil "~a " (component-version (find-system :lime))))
+       (2 (format nil "~a " (component-version (find-system :cl-skkserv))))
        (3 (format nil "hostname:addr:...: "))
        (4 (let ((result (complete dictionary (second request))))
             (format nil "1/~{~A/~}~%" result)))))))

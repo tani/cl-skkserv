@@ -1,8 +1,8 @@
 (in-package :cl-user)
-(defpackage :lime/core/dictionary
+(defpackage :cl-skkserv/core/dictionary
   (:use :cl)
   (:export dictionary convert complete))
-(in-package :lime/core/dictionary)
+(in-package :cl-skkserv/core/dictionary)
 
 (defclass dictionary () ())
 (defgeneric convert (dictionary word)

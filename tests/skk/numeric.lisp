@@ -1,9 +1,9 @@
 (in-package :cl-user)
-(defpackage :lime/tests/skk/numeric
+(defpackage :cl-skkserv/tests/skk/numeric
   (:use :cl :1am
-        :lime/core/main
-        :lime/skk/numeric))
-(in-package :lime/tests/skk/numeric)
+        :cl-skkserv/core/main
+        :cl-skkserv/skk/numeric))
+(in-package :cl-skkserv/tests/skk/numeric)
 
 (defparameter *dictionary* 
   (make-instance 'skk-numeric-dictionary :pathname #p"./data/SKK-JISYO.L"))

@@ -5,28 +5,28 @@ exec ros -Q -- $0 "$@"
 |#
 (progn ;;init forms
   (ros:ensure-asdf)
-  #+quicklisp (ql:quickload '(:lime :usocket :usocket-server :daemon) :silent t)
+  #+quicklisp (ql:quickload '(:cl-skkserv :usocket :usocket-server :daemon) :silent t)
   )
 
-(defpackage :ros.script.lime.3723019386
+(defpackage :ros.script.cl-skkserv.3723019386
   (:use :cl))
-(in-package :ros.script.lime.3723019386)
+(in-package :ros.script.cl-skkserv.3723019386)
 
 (defun serve ()
   (catch :exit
     (usocket:socket-server
-     lime-user:*address*
-     lime-user:*port*
-     #'lime:process
-     (list lime-user:*dictionary*
-           lime-user:*encoding*)
+     skkserv-user:*address*
+     skkserv-user:*port*
+     #'skkserv:process
+     (list skkserv-user:*dictionary*
+           skkserv-user:*encoding*)
      :element-type '(unsigned-byte 8))))
 
 (defun main (&rest argv)
   (declare (ignorable argv))  
   ;; Initialization
   (let* ((home (user-homedir-pathname))
-         (init (merge-pathnames #p".limerc" home)))
+         (init (merge-pathnames #p".skkservrc" home)))
     (when (probe-file init)
       (load init)))
   (cond 
@@ -36,13 +36,13 @@ exec ros -Q -- $0 "$@"
      (unwind-protect (serve) (daemon:exit)))
     ;; Stop
     ((string= (first argv) "stop")
-     (usocket:with-client-socket (socket stream lime-user:*address* lime-user:*port*)
+     (usocket:with-client-socket (socket stream skkserv-user:*address* skkserv-user:*port*)
        (format stream "5")
        (force-output stream)))
     ;; Handle
     ((string= (first argv) "handle") 
      (multiple-value-bind (status response)
-         (lime:handle (second argv) lime-user:*dictionary*)
+         (skkserv:handle (second argv) skkserv-user:*dictionary*)
        (format t "~a, ~a" status response)))))
 
 ;;; vim: set ft=lisp lisp:

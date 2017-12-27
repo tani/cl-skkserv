@@ -1,8 +1,8 @@
 (in-package :cl-user)
-(defpackage :lime/skk/util
+(defpackage :cl-skkserv/skk/util
   (:use :cl :babel :alexandria :esrap :cl-ppcre)
   (:export make-table))
-(in-package :lime/skk/util)
+(in-package :cl-skkserv/skk/util)
 
 (defrule value (+ (not #\/))
   (:lambda (list) (coerce list 'string)))

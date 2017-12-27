@@ -1,9 +1,9 @@
 (in-package :cl-user)
-(defpackage :lime/tests/skk/lisp
+(defpackage :cl-skkserv/tests/skk/lisp
   (:use :cl :1am
-        :lime/core/main
-        :lime/skk/lisp))
-(in-package :lime/tests/skk/lisp)
+        :cl-skkserv/core/main
+        :cl-skkserv/skk/lisp))
+(in-package :cl-skkserv/tests/skk/lisp)
 
 (defparameter *dictionary* 
   (make-instance 'skk-lisp-dictionary :pathname #p"./data/SKK-JISYO.L"))

@@ -1,10 +1,10 @@
 (in-package :cl-user)
-(defpackage :lime/tests/core/mixed
+(defpackage :cl-skkserv/tests/core/mixed
   (:use :cl :1am 
-        :lime/skk/main
-        :lime/core/main
-        :lime/mixed/main))
-(in-package :lime/tests/core/mixed)
+        :cl-skkserv/skk/main
+        :cl-skkserv/core/main
+        :cl-skkserv/mixed/main))
+(in-package :cl-skkserv/tests/core/mixed)
 
 (defparameter *text*
   (make-instance 'skk-text-dictionary :pathname #p"./data/SKK-JISYO.L"))
