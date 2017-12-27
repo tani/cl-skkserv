@@ -1,9 +1,10 @@
 (in-package :cl-user)
-(defpackage :lime/google
+(defpackage :lime/google/main
+  (:nicknames :lime/google)
   (:use :cl :drakma :yason :flexi-streams :alexandria)
   (:import-from :lime/core/main dictionary convert)
   (:export google-input-method-dictionary))
-(in-package :lime/google)
+(in-package :lime/google/main)
 
 (defparameter *URL* "http://www.google.com/transliterate")
 
@@ -15,6 +16,6 @@
          (stream (http-request *URL* :parameters params)))
     (setf (flexi-stream-external-format stream) :utf-8)
     (let ((candidates (mapcar #'second (parse stream :object-as :plist))))
-      (flet ((scat (&rest s) (apply concatenate 'string s)))
+      (flet ((scat (&rest s) (apply #'concatenate 'string s)))
         (apply #'map-product #'scat candidates)))))
 
