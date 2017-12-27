@@ -7,9 +7,9 @@
 (in-package :lime/tests/core/mixed)
 
 (defparameter *text*
-  (make-instance 'skk-text-dictionary :pathname #p"./SKK-JISYO.L"))
+  (make-instance 'skk-text-dictionary :pathname #p"./data/SKK-JISYO.L"))
 (defparameter *numeric*
-  (make-instance 'skk-text-dictionary :pathname #p"./SKK-JISYO.L"))
+  (make-instance 'skk-text-dictionary :pathname #p"./data/SKK-JISYO.L"))
 (defparameter *mixed*
   (make-instance 'mixed-dictionary :dictionaries (list *text* *numeric*)))
 
