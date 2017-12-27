@@ -12,33 +12,37 @@ exec ros -Q -- $0 "$@"
   (:use :cl))
 (in-package :ros.script.lime.3723019386)
 
-(defparameter *dictionary* (make-instance 'lime:skk-dictionary :pathname #p"./SKK-JISYO.L"))
-(defparameter *encoding* :utf-8)
-(defparameter *address* "localhost")
-(defparameter *port* 5000)
-
 (defun serve ()
   (catch :exit
     (usocket:socket-server
-     *address* *port* #'lime:process
-     (list *dictionary* *encoding*)
+     lime-user:*address*
+     lime-user:*port*
+     #'lime:process
+     (list lime-user:*dictionary*
+           lime-user:*encoding*)
      :element-type '(unsigned-byte 8))))
 
-(defun stop-process ())
-
 (defun main (&rest argv)
-  (declare (ignorable argv))
-  (cond ((string= (first argv) "start")
-         (daemon:daemonize :exit-parent t)
-         (unwind-protect (serve) (daemon:exit)))
-        ((string= (first argv) "debug") (serve))
-        ((string= (first argv) "stop")
-         (usocket:with-client-socket (socket stream *address* *port*)
-           (format stream "5")
-           (force-output stream)))
-        ((string= (first argv) "handle") 
-         (multiple-value-bind (status response)
-             (lime:handle (second argv) *dictionary*)
-           (format t "~a, ~a" status response)))))
+  (declare (ignorable argv))  
+  ;; Initialization
+  (let* ((home (user-homedir-pathname))
+         (init (merge-pathnames #p".limerc" home)))
+    (when (probe-file init)
+      (load init)))
+  (cond 
+    ;; Start
+    ((string= (first argv) "start")
+     (daemon:daemonize :exit-parent t)
+     (unwind-protect (serve) (daemon:exit)))
+    ;; Stop
+    ((string= (first argv) "stop")
+     (usocket:with-client-socket (socket stream lime-user:*address* lime-user:*port*)
+       (format stream "5")
+       (force-output stream)))
+    ;; Handle
+    ((string= (first argv) "handle") 
+     (multiple-value-bind (status response)
+         (lime:handle (second argv) lime-user:*dictionary*)
+       (format t "~a, ~a" status response)))))
 
 ;;; vim: set ft=lisp lisp:
