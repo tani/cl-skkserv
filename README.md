@@ -1,44 +1,39 @@
-<div style="text-align: center">
-	<img src="https://openclipart.org/image/2400px/svg_to_png/273616/Lime.png" height="100px"/> <br>
-	<a href="https://www.amazon.co.jp/hz/wishlist/ls/9XB2O6O7JULV">
-		<img src="https://img.shields.io/badge/amazon-wishlist-orange.svg" />
-	</a>
-	<h1>LIME<br><small>Lisp Input Method Editor</small></h1>
-</div>
+# CL-SKKSERV
+
+[![Quicklisp](http://quickdocs.org/badge/cl-skkserv.svg)](http://quickdocs.org/cl-skkserv/)
+[![Amazon Wishlist](https://img.shields.io/badge/Amazon-wishlist-orange.svg)](https://www.amazon.co.jp/hz/wishlist/ls/9XB2O6O7JULV)
 
 ## 概要
 
-LIME はSKKに影響を受けた日本語入力システムです。
+cl-skkserv はSKKに影響を受けた日本語入力システムです。
 
 既存のSKKサーバーとの互換性を保ちながらCommon Lispによるインテグレーションを可能にします。
 
-LIMEはSKKサーバーとその辞書機能が完全に分離しており動的に辞書機能を書き換えることが可能です。
+cl-skkservはSKKサーバーとその辞書機能が完全に分離しており動的に辞書機能を書き換えることが可能です。
 これにより辞書ファイルを事前に合成しておく必要がなくなります。
 更にGoogleのCGIや他のSKKサーバーでさえ辞書として使うことができます。
 
 ## 導入
+
 Common Lisp開発ツールであるRoswellを使うことで以下のように簡単に導入できます。
 
-    $ ros install asciian/lime
+    $ ros install asciian/cl-skkserv
 
 ## 使い方
 
-### 基本的な使い方
+### 基礎
 
-    $ lime up
-    $ lime down
+    $ skkserv start # skkservを起動する
+    $ skkserv stop  # skkservを停止する
 
-### 応用的な使い方
+### 応用
 
 #### 設定
 
-`~/.limerc`で編集することができます。以下に一例を示します。
+`~/.skkservrc`で編集することができます。以下に一例を示します。
 
 ```lisp
-(in-package :cl)
-(defpackage :limerc
-  (:use :cl :lime))
-(in-package :limerc)
+(in-package :skkserv-user)
 
 (setf *dictionary* (make-instance 'skk-dictionary :filespec #p"/path/to/dictionary"))
 ```
@@ -47,13 +42,14 @@ Common Lisp開発ツールであるRoswellを使うことで以下のように�
 #### 辞書
 
 すべての辞書はCLOSによって管理されており、必ずDICTIONARYクラスを継承しLOOKUPメソッドが定義されています。
-もしあなたが新しい辞書を作りたい場合はDICTIONARYクラスを継承しLOOKUPメソッドを定義したクラスを作ることで辞書を作ることができます。
+もしあなたが新しい辞書を作りたい場合はDICTIONARYクラスを継承しconvertメソッドを定義したクラスを作ることで辞書を作ることができます。
 
 以下は入力をそのまま候補として返すEcho辞書の例です。
-メソッドコンビネーションがlistになっていることに注意してください。
+メソッドコンビネーションがappendになっていることに注意してください。
+
 ```lisp
 (defclass echo-dictionary (dictionary) ())
-(defmethod lookup append ((d echo-dictionary) (s string)) (declare (ignore d)) (list s))
+(defmethod convert append ((d echo-dictionary) (s string)) (declare (ignore d)) (list s))
 (setf *dictionary* (make-instance 'echo-dictionary))
 ```
 
@@ -72,7 +68,7 @@ Common Lisp開発ツールであるRoswellを使うことで以下のように�
 (setf *dictionary* (make-instance 'mixed-dictionary :dictionaries (list skk echo)))
 ```
 
-LIMEで既に定義されている辞書としては以下のクラスがあります。
+cl-skkservで既に定義されている辞書としては以下のクラスがあります。
 
 - dictionary
     - skk-text-dictionary
@@ -91,7 +87,9 @@ LIMEで既に定義されている辞書としては以下のクラスがあり�
 4. proxy-dictionaryは他のSKKサーバーと通信するためのクラスです
 
 ## ライセンス
+
 GPL第三版及びそれ以降のライセンスのもとで公開された自由ソフトウェアです。
 
 ## 著作権表示
+
 Copyright (c) 2017 asciian ALL Rights Reserved.

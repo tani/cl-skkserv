@@ -1,10 +1,10 @@
 (in-package :cl-user)
-(defpackage :lime/skk/lisp
+(defpackage :cl-skkserv/skk/lisp
   (:use :cl :cl-ppcre :esrap :alexandria)
-  (:import-from :lime/core/main dictionary convert complete)
-  (:import-from :lime/skk/util make-table)
+  (:import-from :cl-skkserv/core/main dictionary convert complete)
+  (:import-from :cl-skkserv/skk/util make-table)
   (:export skk-lisp-dictionary lispp))
-(in-package :lime/skk/lisp)
+(in-package :cl-skkserv/skk/lisp)
 
 (defclass skk-lisp-dictionary (dictionary)
   ((skk-lisp-dictionary-pathname :initarg :pathname :reader skk-lisp-dictionary-pathname)
@@ -26,7 +26,7 @@
 
 (defmethod convert append ((d skk-lisp-dictionary) (s string))
   (let* ((candidates (gethash s (skk-lisp-dictionary-table d)))
-         (*package* (find-package :lime/skk/lisp)))
+         (*package* (find-package :cl-skkserv/skk/lisp)))
     (labels ((octet-to-char-1 (matches digits)
                (declare (ignore matches))
                (princ-to-string (code-char (parse-integer digits :radix 8))))

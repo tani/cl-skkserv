@@ -1,15 +1,15 @@
 (in-package :cl-user)
-(defpackage :lime/skk/main
-  (:nicknames :lime/skk)
+(defpackage :cl-skkserv/skk/main
+  (:nicknames :cl-skkserv/skk :skkserv/skk)
   (:use :cl)
-  (:import-from :lime/core/main dictionary convert)
-  (:import-from :lime/skk/text skk-text-dictionary)
-  (:import-from :lime/skk/numeric skk-numeric-dictionary)
-  (:import-from :lime/skk/lisp skk-lisp-dictionary) 
+  (:import-from :cl-skkserv/core/main dictionary convert)
+  (:import-from :cl-skkserv/skk/text skk-text-dictionary)
+  (:import-from :cl-skkserv/skk/numeric skk-numeric-dictionary)
+  (:import-from :cl-skkserv/skk/lisp skk-lisp-dictionary) 
   (:export skk-dictionary
            skk-text-dictionary
            skk-numeric-dictionary
            skk-lisp-dictionary))
-(in-package :lime/skk/main)
+(in-package :cl-skkserv/skk/main)
 
 (defclass skk-dictionary (skk-text-dictionary skk-numeric-dictionary skk-lisp-dictionary) ())

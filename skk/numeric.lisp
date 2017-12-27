@@ -1,11 +1,11 @@
 (in-package :cl-user)
-(defpackage :lime/skk/numeric
+(defpackage :cl-skkserv/skk/numeric
   (:use :cl :esrap :cl-ppcre :alexandria)
-  (:import-from :lime/core/main dictionary convert)
-  (:import-from :lime/skk/lisp lispp)
-  (:import-from :lime/skk/util make-table)
+  (:import-from :cl-skkserv/core/main dictionary convert)
+  (:import-from :cl-skkserv/skk/lisp lispp)
+  (:import-from :cl-skkserv/skk/util make-table)
   (:export skk-numeric-dictionary numericp))
-(in-package :lime/skk/numeric)
+(in-package :cl-skkserv/skk/numeric)
 
 (defun hankaku-to-zenkaku (s)
   (flet ((hankaku-to-zenkaku-1 (c)

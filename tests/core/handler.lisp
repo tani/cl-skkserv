@@ -1,10 +1,10 @@
 (in-package :cl-user)
-(defpackage :lime/tests/core/handler
+(defpackage :cl-skkserv/tests/core/handler
   (:use :cl :1am 
-        :lime/skk/main
-        :lime/core/dictionary
-        :lime/core/handler))
-(in-package :lime/tests/core/handler)
+        :cl-skkserv/skk/main
+        :cl-skkserv/core/dictionary
+        :cl-skkserv/core/handler))
+(in-package :cl-skkserv/tests/core/handler)
 
 (defparameter *dictionary*
   (make-instance 'skk-dictionary :pathname #p"./data/SKK-JISYO.L"))

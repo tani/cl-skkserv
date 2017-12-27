@@ -1,12 +1,12 @@
 (in-package :cl-user)
-(defpackage :lime/skk/text
+(defpackage :cl-skkserv/skk/text
   (:use :cl :cl-ppcre :alexandria)
-  (:import-from :lime/core/main dictionary convert complete)
-  (:import-from :lime/skk/lisp lispp)
-  (:import-from :lime/skk/numeric numericp)
-  (:import-from :lime/skk/util make-table)
+  (:import-from :cl-skkserv/core/main dictionary convert complete)
+  (:import-from :cl-skkserv/skk/lisp lispp)
+  (:import-from :cl-skkserv/skk/numeric numericp)
+  (:import-from :cl-skkserv/skk/util make-table)
   (:export skk-text-dictionary))
-(in-package :lime/skk/text)
+(in-package :cl-skkserv/skk/text)
 
 (defclass skk-text-dictionary (dictionary)
   ((skk-text-dictionary-pathname :initarg :pathname :reader skk-text-dictionary-pathname)

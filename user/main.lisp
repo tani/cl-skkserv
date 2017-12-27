@@ -1,11 +1,11 @@
 (in-package :cl-user)
-(defpackage :lime/user/main
-  (:nicknames :lime/user :lime-user)
-  (:use :cl :lime/skk/main :asdf :trivial-download)
+(defpackage :cl-skkserv/user/main
+  (:nicknames :cl-skkserv/user :skkserv/user :cl-skkserv-user :skkserv-user)
+  (:use :cl :cl-skkserv/skk/main :asdf :trivial-download)
   (:export *dictionary* *address* *port* *encoding*))
-(in-package :lime/user/main)
+(in-package :cl-skkserv/user/main)
 
-(defvar jisyo (merge-pathnames #p"data/SKK-JISYO.L" (component-pathname (find-system :lime))))
+(defvar jisyo (merge-pathnames #p"data/SKK-JISYO.L" (component-pathname (find-system :cl-skkserv))))
 (unless (probe-file jisyo)
   (download "http://openlab.ring.gr.jp/skk/skk/dic/SKK-JISYO.L" jisyo))
 
