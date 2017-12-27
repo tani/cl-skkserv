@@ -1,4 +1,4 @@
-.PHONY: test clean
+.PHONY: test clean format
 
 test:
 	ros run -e '(asdf:test-system :lime)' -q
