@@ -6,7 +6,7 @@
 (in-package :lime/tests/skk/numeric)
 
 (defparameter *dictionary* 
-  (make-instance 'skk-numeric-dictionary :pathname #p"./SKK-JISYO.L"))
+  (make-instance 'skk-numeric-dictionary :pathname #p"./data/SKK-JISYO.L"))
 
 (test test-skk-numeric-dictionary
       ;;辞書の検索

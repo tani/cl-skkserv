@@ -7,7 +7,7 @@
 (in-package :lime/tests/core/handler)
 
 (defparameter *dictionary*
-  (make-instance 'skk-dictionary :pathname #p"./SKK-JISYO.L"))
+  (make-instance 'skk-dictionary :pathname #p"./data/SKK-JISYO.L"))
 
 (test test-handler
       (is (equalp (multiple-value-list (handle "1a " *dictionary*))
@@ -15,4 +15,4 @@
       (is (equalp (multiple-value-list (handle "4a " *dictionary*))
                   (list 4 (format nil "1/~{~A/~}~%" (complete *dictionary* "a"))))))
 
-          
+

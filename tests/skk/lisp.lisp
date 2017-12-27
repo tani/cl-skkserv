@@ -6,7 +6,7 @@
 (in-package :lime/tests/skk/lisp)
 
 (defparameter *dictionary* 
-  (make-instance 'skk-lisp-dictionary :pathname #p"./SKK-JISYO.L"))
+  (make-instance 'skk-lisp-dictionary :pathname #p"./data/SKK-JISYO.L"))
 
 (test test-skk-lisp-dictionary
       ;;検索
