@@ -11,9 +11,15 @@
                jp-numeral
                usocket
                drakma
+               flexi-streams
                yason
-               flex-stream
-               lime/main)
+               trivial-download
+               lime/core/main
+               lime/skk/main
+               lime/google/main
+               lime/mixed/main
+               lime/proxy/main
+               lime/user/main)
   :in-order-to ((test-op (test-op lime/tests))))
 
 (defsystem lime/tests
