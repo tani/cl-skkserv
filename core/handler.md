@@ -1,20 +1,24 @@
-(in-package :cl-user)
-(defpackage :cl-skkserv/core/handler
-  (:use :cl :esrap :asdf)
-  (:import-from :cl-skkserv/core/dictionary convert complete)
-  (:export handle))
-(in-package :cl-skkserv/core/handler)
+    (in-package :cl-skkserv/core)
+    (in-readtable :papyrus)
 
+# ハンドラー
+
+```lisp
 (defrule convert-request (and #\1 (+ (not #\space)) #\space)
   (:lambda (list) (list (parse-integer (first list)) (format nil "~{~a~}" (second list)))))
+
 (defrule complete-request (and #\4 (+ (not #\space)) #\space)
   (:lambda (list) (list (parse-integer (first list)) (format nil "~{~a~}" (second list)))))
+
 (defrule other-request (or #\0 #\2 #\3 #\5)
   (:lambda (list) (list (parse-integer list))))
+  
 (defrule request (or convert-request
                      complete-request
                      other-request))
+```
 
+```lisp
 (defun handle (string dictionary)
   ;; http://umiushi.org/~wac/yaskkserv/#protocol
   (let ((request (parse 'request string)))
@@ -27,3 +31,4 @@
        (3 (format nil "hostname:addr:...: "))
        (4 (let ((result (complete dictionary (second request))))
             (format nil "1/~{~A/~}~%" result)))))))
+```
