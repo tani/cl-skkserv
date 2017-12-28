@@ -12,4 +12,15 @@
     (in-package :cl-skkserv/core)
     (in-readtable :papyrus)
 
-# 目次
+# コア機能
+
+クライアントと辞書との間を取り持つための機能群です。**辞書**と**要求を解釈するハンドラー**と**クライアントとの接続を管理するプロセス**の3つから構成されます。cl-skkservをCommonLispから操作する場合どのレイヤーからでも始めることができます。
+
+## 目次
+
+- [辞書](/index.html?source=core/dictionary.md)
+- [ハンドラー](/index.html?source=core/handler.md)
+- [プロセス](/index.html?source=core/process.md)
+
+
+
