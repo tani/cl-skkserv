@@ -1,9 +1,9 @@
 (in-package :cl-user)
-(defpackage :cl-skkserv/tests/google
+(defpackage :cl-skkserv/tests/google-ime
   (:use :cl :1am 
         :cl-skkserv/core
-        :cl-skkserv/google))
-(in-package :cl-skkserv/tests/google)
+        :cl-skkserv/google-ime))
+(in-package :cl-skkserv/tests/google-ime)
 
 (defparameter *dictionary* (make-instance 'google-ime-dictionary))
 

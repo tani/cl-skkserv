@@ -10,7 +10,7 @@
                cl-skkserv/skk
                cl-skkserv/mixed
                cl-skkserv/proxy
-               cl-skkserv/google
+               cl-skkserv/google-ime
                cl-skkserv/user)
   :in-order-to ((test-op (test-op cl-skkserv/tests))))
 
@@ -43,10 +43,10 @@
                 :components
                 ((:papyrus "index")))))
 
-(defsystem cl-skkserv/google
+(defsystem cl-skkserv/google-ime
   :depends-on (papyrus drakma flexi-streams yason named-readtables cl-skkserv/core)
   :serial t
-  :components ((:module "google"
+  :components ((:module "google-ime"
                 :components
                 ((:papyrus "index")))))
 
@@ -72,5 +72,5 @@
                 ((:file "core")
                  (:file "skk")
                  (:file "mixed")
-                 (:file "google"))))
+                 (:file "google-ime"))))
   :perform (test-op (o c) (symbol-call :1am '#:run)))
