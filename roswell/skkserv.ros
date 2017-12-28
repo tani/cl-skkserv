@@ -34,6 +34,7 @@ exec ros -Q -- $0 "$@"
     ((string= (first argv) "start")
      (daemon:daemonize :exit-parent t)
      (unwind-protect (serve) (daemon:exit)))
+    ((string= (first argv) "debug") (serve))     
     ;; Stop
     ((string= (first argv) "stop")
      (usocket:with-client-socket (socket stream skkserv-user:*address* skkserv-user:*port*)

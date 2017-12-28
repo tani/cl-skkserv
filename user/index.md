@@ -18,5 +18,5 @@
 (defparameter *dictionary* (make-instance 'skk-dictionary :pathname jisyo))
 (defparameter *address* "localhost")
 (defparameter *port* 1178)
-(defparameter *encoding* :euc-jp)
+(defparameter *encoding* :eucjp)
 ```

@@ -58,9 +58,9 @@
                 ((:papyrus "index")))))
 
 (defsystem cl-skkserv/user
-  :depends-on (papyrus named-readtables cl-skkserv/core)
+  :depends-on (papyrus trivial-download named-readtables cl-skkserv/core)
   :serial t
-  :components ((:module "mixed"
+  :components ((:module "user"
                 :components
                 ((:papyrus "index")))))
 
@@ -72,5 +72,6 @@
                 ((:file "core")
                  (:file "skk")
                  (:file "mixed")
-                 (:file "google-ime"))))
+                 (:file "google-ime")
+                 (:file "proxy"))))
   :perform (test-op (o c) (symbol-call :1am '#:run)))
