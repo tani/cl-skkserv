@@ -1,9 +1,9 @@
     (in-package :cl-user)
-    (defpackage :cl-skkserv/google
-      (:nicknames :skkserv/google)
+    (defpackage :cl-skkserv/google-ime
+      (:nicknames :skkserv/google-ime)
       (:use :cl :drakma :yason :flexi-streams :alexandria :named-readtables :papyrus :cl-skkserv/core)
       (:export google-ime-dictionary))
-    (in-package :cl-skkserv/google)
+    (in-package :cl-skkserv/google-ime)
     (in-readtable :papyrus)
 
 # Google日本語入力辞書
