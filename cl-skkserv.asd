@@ -44,14 +44,14 @@
                 ((:papyrus "index")))))
 
 (defsystem cl-skkserv/google
-  :depends-on (papyrus named-readtables cl-skkserv/core)
+  :depends-on (papyrus drakma flexi-streams yason named-readtables cl-skkserv/core)
   :serial t
   :components ((:module "mixed"
                 :components
                 ((:papyrus "index")))))
 
 (defsystem cl-skkserv/proxy
-  :depends-on (papyrus named-readtables cl-skkserv/core)
+  :depends-on (papyrus usocket babel named-readtables cl-skkserv/core)
   :serial t
   :components ((:module "mixed"
                 :components
