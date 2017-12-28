@@ -5,11 +5,7 @@
         :cl-skkserv/proxy))
 (in-package :cl-skkserv/tests/proxy)
 
-(defparameter *dictionary*
-  (make-instance 'proxy-dictionary
-                 :address "localhost"
-                 :port 1178
-                 :encoding :eucjp))
+(defparameter *dictionary* (make-instance 'proxy-dictionary))
 
 (test test-proxy-dictionary
       ;;変換
