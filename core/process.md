@@ -18,7 +18,9 @@
                      :until (char= e #\space)
                      :finally (return (append (list b) s)))))
             '(vector (unsigned-byte 8)))))
+```
 
+```lisp
 (defun write-response (stream response)
   (write-sequence response stream)
   (force-output stream))

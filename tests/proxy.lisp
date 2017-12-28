@@ -5,8 +5,12 @@
         :cl-skkserv/proxy))
 (in-package :cl-skkserv/tests/proxy)
 
-(defparameter *dictionary* (make-instance 'proxy-dictionary :address "" :port "" :encoding :eucjp))
+(defparameter *dictionary*
+  (make-instance 'proxy-dictionary
+                 :address "localhost"
+                 :port 1178
+                 :encoding :eucjp))
 
-(test test-google-ime-dictionary
+(test test-proxy-dictionary
       ;;変換
-      (is (equalp "ここでは着物を脱ぐ" (first (convert *dictionary* "ここではきものをぬぐ")))))
+      (is (equalp "見" (first (convert *dictionary* "みr")))))
