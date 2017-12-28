@@ -2,7 +2,7 @@
     (defpackage :cl-skkserv/google
       (:nicknames :skkserv/google)
       (:use :cl :drakma :yason :flexi-streams :alexandria :named-readtables :papyrus :cl-skkserv/core)
-      (:export google-input-method-dictionary))
+      (:export google-ime-dictionary))
     (in-package :cl-skkserv/google)
     (in-readtable :papyrus)
 
@@ -64,14 +64,14 @@ Google日本語入力が提供するCGI APIは入力文字列に対して文節�
 (defmethod convert append ((d google-ime-dictionary) (s string))
   (handler-case
 	  (let* ((*drakma-default-external-format* :utf-8)
-			 (params `(("langpair" . "ja-Hira|ja") ("text" . ,s)))
-			 (stream (http-request *URL* :parameters params)))
+		 (params `(("langpair" . "ja-Hira|ja") ("text" . ,s)))
+		 (stream (http-request *URL* :parameters params :want-stream t)))
 		(setf (flexi-stream-external-format stream) :utf-8)
 		(let ((candidates (mapcar #'second (parse stream :object-as :plist))))
 		  (flet ((scat (&rest s) (apply #'concatenate 'string s)))
 			(apply #'map-product #'scat candidates))))
-	(socket-error ()
-	  (warn "CL-SKKSERV/GOOGLE:WARN: ~a is not active.~%" *URL*))))
+	(error () (warn "CL-SKKSERV/GOOGLE:WARN: ~a is not active.~%" *URL*))))
+		   
 ```
 
 

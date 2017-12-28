@@ -46,14 +46,14 @@
 (defsystem cl-skkserv/google
   :depends-on (papyrus drakma flexi-streams yason named-readtables cl-skkserv/core)
   :serial t
-  :components ((:module "mixed"
+  :components ((:module "google"
                 :components
                 ((:papyrus "index")))))
 
 (defsystem cl-skkserv/proxy
   :depends-on (papyrus usocket babel named-readtables cl-skkserv/core)
   :serial t
-  :components ((:module "mixed"
+  :components ((:module "proxy"
                 :components
                 ((:papyrus "index")))))
 
@@ -71,5 +71,6 @@
                 :components 
                 ((:file "core")
                  (:file "skk")
-                 (:file "mixed"))))
+                 (:file "mixed")
+                 (:file "google"))))
   :perform (test-op (o c) (symbol-call :1am '#:run)))
