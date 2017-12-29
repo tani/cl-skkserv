@@ -81,7 +81,7 @@ cl-skkservで既に定義されている辞書としては以下のクラスが�
     - skk-lisp-dictionary
         - skk-dictionary
     - skk-pattern-dictionary
-        - skk-lisp-dictionary
+        - skk-dictionary
     - google-ime-dictionary
     - mixed-dictionary
     - proxy-dictionary
