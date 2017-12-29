@@ -11,10 +11,10 @@
 
 # 目次
 
-- [テキスト辞書](/index.html?source=skk/text.md)
-- [数値辞書](/index.html?source=skk/numeric.md)
-- [LISP辞書](/index.html?source=skk/lisp.md)
-- [辞書読み込み](/index.html?source=skk/util.md)
+- [テキスト辞書](/cl-skkserv/index.html?source=skk/text.md)
+- [数値辞書](/cl-skkserv/index.html?source=skk/numeric.md)
+- [LISP辞書](/cl-skkserv/index.html?source=skk/lisp.md)
+- [辞書読み込み](/cl-skkserv/index.html?source=skk/util.md)
 
 # SKK辞書
 
