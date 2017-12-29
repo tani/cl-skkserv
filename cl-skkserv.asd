@@ -33,8 +33,7 @@
                  (:papyrus "util")
                  (:papyrus "lisp")
                  (:papyrus "numeric")
-                 (:papyrus "text")
-                 (:papyrus "skk")))))
+                 (:papyrus "text")))))
 
 (defsystem cl-skkserv/mixed
   :depends-on (papyrus named-readtables cl-skkserv/core)
