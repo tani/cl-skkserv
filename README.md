@@ -86,10 +86,10 @@ cl-skkservで既に定義されている辞書としては以下のクラスが�
 
 - [ルート](https://asciian.github.io/cl-skkserv/index.html)
     - [コア機能](https://asciian.github.io/cl-skkserv/index.html?source=core/index.md)
-    - [SKK辞書](https://asciian.github.io/cl-skkserv/index.html?source=core/index.md)
-    - [Google日本語入力辞書](https://asciian.github.io/cl-skkserv/index.html?source=core/index.md)
-    - [プロキシー辞書](https://asciian.github.io/cl-skkserv/index.html?source=core/index.md)
-    - [複合辞書](https://asciian.github.io/cl-skkserv/index.html?source=core/index.md)
+    - [SKK辞書](https://asciian.github.io/cl-skkserv/index.html?source=skk/index.md)
+    - [Google日本語入力辞書](https://asciian.github.io/cl-skkserv/index.html?source=google-ime/index.md)
+    - [プロキシー辞書](https://asciian.github.io/cl-skkserv/index.html?source=proxy/index.md)
+    - [複合辞書](https://asciian.github.io/cl-skkserv/index.html?source=mixed/index.md)
 
 ## ライセンス
 
