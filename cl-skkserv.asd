@@ -2,7 +2,7 @@
   ((type :initform "md")))
 
 (defsystem cl-skkserv
-  :description "skkserv for Common Lisp"
+  :description "skkserv with Common Lisp"
   :license "GPLv3"
   :author "asciian"
   :version "0.1.0"
