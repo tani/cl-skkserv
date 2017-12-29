@@ -5,7 +5,7 @@
         :cl-skkserv/proxy))
 (in-package :cl-skkserv/tests/proxy)
 
-(defparameter *dictionary* (make-instance 'proxy-dictionary))
+(defparameter *dictionary* (make-instance 'proxy-dictionary :port 2278))
 
 (test test-proxy-dictionary
       ;;変換
