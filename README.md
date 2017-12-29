@@ -37,6 +37,25 @@ Common Lisp開発ツールであるRoswellを使うことで以下のように�
 (setf *dictionary* (make-instance 'skk-dictionary :filespec #p"/path/to/dictionary"))
 ```
 
+Emacsで使う場合は`~/.emacs`で以下を追記してください。
+
+```
+(setq skk-server-host "127.0.0.1")
+(setq skk-server-portnum 1178)
+(defadvice skk-server-completion-search-midasi
+    (around substitute-server-connection-to-yaskkserv activate compile)
+  (let* ((server skk-server-host)
+	 (port 1182)
+	 (skkserv-working-buffer (get-buffer-create " *skk-server-completion*"))
+	 (proc (get-buffer-process skkserv-working-buffer))
+	 (skkserv-process (or (and (skk-server-live-p proc) proc)
+			      (open-network-stream "skk-server-completion"
+						   skkserv-working-buffer
+						   server port))))
+    (set-process-query-on-exit-flag skkserv-process nil)
+    ad-do-it))
+```
+
 #### 辞書
 
 すべての辞書はCLOSによって管理されており、必ずDICTIONARYクラスを継承しLOOKUPメソッドが定義されています。
