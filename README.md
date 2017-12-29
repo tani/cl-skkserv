@@ -1,16 +1,16 @@
 # cl-skkserv
-
-![Travis CI](https://img.shields.io/travis/asciian/cl-skkserv.svg) [![Quicklisp](http://quickdocs.org/badge/cl-skkserv.svg)](http://quickdocs.org/cl-skkserv/) [![Amazon Wishlist](https://img.shields.io/badge/Amazon-wishlist-orange.svg)](https://www.amazon.co.jp/hz/wishlist/ls/9XB2O6O7JULV)
+[![Github](https://img.shields.io/badge/Hosted%20with-Github-red.svg)](https://github.com/asciian/cl-skkserv/) ![Travis CI](https://img.shields.io/travis/asciian/cl-skkserv.svg) [![Quicklisp](http://quickdocs.org/badge/cl-skkserv.svg)](http://quickdocs.org/cl-skkserv/) [![Amazon Wishlist](https://img.shields.io/badge/Amazon-wishlist-orange.svg)](https://www.amazon.co.jp/hz/wishlist/ls/9XB2O6O7JULV)
 
 ## 概要
 
 cl-skkserv はSKKに影響を受けた日本語入力システムです。
-
 既存のSKKサーバーとの互換性を保ちながらCommon Lispによるインテグレーションを可能にします。
 
 cl-skkservはSKKサーバーとその辞書機能が完全に分離しており動的に辞書機能を書き換えることが可能です。
 これにより辞書ファイルを事前に合成しておく必要がなくなります。
 更にGoogleのCGIや他のSKKサーバーでさえ辞書として使うことができます。
+
+なお、このソフトウェアは開発初期段階です。APIが変わる可能性があります。
 
 ## 導入
 
@@ -37,57 +37,64 @@ Common Lisp開発ツールであるRoswellを使うことで以下のように�
 (setf *dictionary* (make-instance 'skk-dictionary :filespec #p"/path/to/dictionary"))
 ```
 
-
 #### 辞書
 
 すべての辞書はCLOSによって管理されており、必ずDICTIONARYクラスを継承しLOOKUPメソッドが定義されています。
 もしあなたが新しい辞書を作りたい場合はDICTIONARYクラスを継承しconvertメソッドを定義したクラスを作ることで辞書を作ることができます。
 
 以下は入力をそのまま候補として返すEcho辞書の例です。
-メソッドコンビネーションがappendになっていることに注意してください。
+メソッドコンビネーションがappendになっていることに注意してください。
 
 ```lisp
 (defclass echo-dictionary (dictionary) ())
 (defmethod convert append ((d echo-dictionary) (s string)) (declare (ignore d)) (list s))
-(setf *dictionary* (make-instance 'echo-dictionary))
+(setq *dictionary* (make-instance 'echo-dictionary))
 ```
 
 例えば、SKKの辞書にEcho辞書を合成したいならSKK辞書を継承して以下のようにすることができます。
 
 ```lisp
 (defclass echo-and-skk-dictionary (echo-dictionary skk-dictionary) ()) ;; skk-dicitonary はdictionaryクラスのサブクラスです。
-(setf *dictionary* (make-instance 'echo-and-skk-dictionary :filespec #p"/path/to/dictionary"))
+(setq *dictionary* (make-instance 'echo-and-skk-dictionary :pathname #p"/path/to/dictionary"))
 ```
 
 また、DICTIONARYクラスのサブクラスのインスタンス同士を合成するMIXED-DICTIONARYクラスを使うこともできます。
 
 ```lisp
-(defvar skk (make-instance 'skk-dictionary :filespec #p"/path/to/dictionary"))
+(defvar skk (make-instance 'skk-dictionary :pathname #p"/path/to/dictionary"))
 (defvar echo (make-instance 'echo-dictionary))
-(setf *dictionary* (make-instance 'mixed-dictionary :dictionaries (list skk echo)))
+(setq *dictionary* (make-instance 'mixed-dictionary :dictionaries (list skk echo)))
 ```
 
 cl-skkservで既に定義されている辞書としては以下のクラスがあります。
 
 - dictionary
     - skk-text-dictionary
-        - skk-dictionary [1]
+        - skk-dictionary
     - skk-lisp-dictionary
-        - skk-dictionary [1]
-    - skk-pattern-dictionary [2]
-        - skk-lisp-dictionary [1]
-    - google-input-method-dictionary [3]
+        - skk-dictionary
+    - skk-pattern-dictionary
+        - skk-lisp-dictionary
+    - google-ime-dictionary
     - mixed-dictionary
-    - proxy-dictionary [4]
+    - proxy-dictionary
 
-1. skk-dictionaryはskk-text-dictionaryとskk-lisp-dictionaryとskk-lisp-dictionaryの３つを継承したクラスです
-2. 対応している数値変換は無変換(#0)と全角(#1)と漢数字(#2 #3 #5)です
-3. Google日本語入力を用いた変換を行うクラスです
-4. proxy-dictionaryは他のSKKサーバーと通信するためのクラスです
+## リファレンス
+
+各システムは[Papyrus](https://github.com/asciian/papyrus/)によって文芸的プログラミングで作られています。
+各ページへの目次は以下の通りです。
+
+- [ルート](https://asciian.github.io/cl-skkserv/index.html)
+    - [コア機能](https://asciian.github.io/cl-skkserv/index.html?source=core/index.md)
+    - [SKK辞書](https://asciian.github.io/cl-skkserv/index.html?source=core/index.md)
+    - [Google日本語入力辞書](https://asciian.github.io/cl-skkserv/index.html?source=core/index.md)
+    - [プロキシー辞書](https://asciian.github.io/cl-skkserv/index.html?source=core/index.md)
+    - [複合辞書](https://asciian.github.io/cl-skkserv/index.html?source=core/index.md)
 
 ## ライセンス
 
 GPL第三版及びそれ以降のライセンスのもとで公開された自由ソフトウェアです。
+ライセンスドキュメントは[こちら](https://asciian.github.io/cl-skkserv/index.html?source=LICENSE.md)。
 
 ## 著作権表示
 
