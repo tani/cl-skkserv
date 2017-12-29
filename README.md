@@ -97,6 +97,7 @@ cl-skkservで既に定義されている辞書としては以下のクラスが�
     - [Google日本語入力辞書](https://asciian.github.io/cl-skkserv/index.html?source=google-ime/index.md)
     - [プロキシー辞書](https://asciian.github.io/cl-skkserv/index.html?source=proxy/index.md)
     - [複合辞書](https://asciian.github.io/cl-skkserv/index.html?source=mixed/index.md)
+    - [設定ファイル](https://asciian.github.io/cl-skkserv/index.html?source=user/index.md)
 
 ## ライセンス
 
