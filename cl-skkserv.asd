@@ -5,7 +5,7 @@
   :description "skkserv for Common Lisp"
   :license "GPLv3"
   :author "asciian"
-  :version "0.0.0"
+  :version "0.1.0"
   :depends-on (cl-skkserv/core
                cl-skkserv/skk
                cl-skkserv/mixed
