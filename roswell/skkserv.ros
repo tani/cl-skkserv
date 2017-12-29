@@ -5,7 +5,7 @@ exec ros -Q -- $0 "$@"
 |#
 (progn ;;init forms
   (ros:ensure-asdf)
-  #+quicklisp (ql:quickload '(:cl-skkserv :usocket :usocket-server :daemon) :silent t)
+  #+quicklisp (ql:quickload '(:cl-skkserv :alexandria :usocket :usocket-server :daemon :apply-argv) :silent t)
   )
 
 (defpackage :ros.script.cl-skkserv.3723019386
@@ -14,6 +14,11 @@ exec ros -Q -- $0 "$@"
 
 (defun serve ()
   (catch :exit
+    (format *error-output*
+	    "Listening on ~a:~a (~a)~%"
+	    skkserv-user:*address*
+	    skkserv-user:*port*
+	    skkserv-user:*encoding*)
     (usocket:socket-server
      skkserv-user:*address*
      skkserv-user:*port*
@@ -22,28 +27,79 @@ exec ros -Q -- $0 "$@"
            skkserv-user:*encoding*)
      :element-type '(unsigned-byte 8))))
 
+(defun start (&rest argv)
+  (let* ((params (apply-argv:parse-argv argv))
+	 (skkserv-user:*address*
+	  (getf params :address skkserv-user:*address*))
+	 (skkserv-user:*port*
+	  (parse-integer
+	   (princ-to-string
+	    (getf params :port skkserv-user:*port*))))
+	 (skkserv-user:*encoding*
+	  (alexandria:format-symbol
+	   :keyword "~:@(~a~)"
+	   (getf params :encoding skkserv-user:*encoding*))))
+    (if (getf params :daemon t)
+	(progn
+	  (daemon:daemonize :exit-parent t)
+	  (unwind-protect (serve) (daemon:exit)))
+	(serve))))
+
+(defun stop (&rest argv)
+  (let* ((params (apply-argv:parse-argv argv))
+	 (skkserv-user:*address*
+	  (getf params :address skkserv-user:*address*))
+	 (skkserv-user:*port*
+	  (parse-integer
+	   (princ-to-string
+	    (getf params :port skkserv-user:*port*))))
+	 (skkserv-user:*encoding*
+	  (alexandria:format-symbol
+	   :keyword "~:@(~a~)"
+	   (getf params :encoding skkserv-user:*encoding*))))
+    (usocket:with-client-socket (socket stream skkserv-user:*address* skkserv-user:*port*)
+      (format stream "5")
+      (force-output stream))))
+
+(defun handle (&rest argv)
+  (declare (ignorable argv))
+  (multiple-value-bind (status response)
+      (skkserv:handle (second argv) skkserv-user:*dictionary*)
+    (format t "~a, ~a" status response)))
+
+(defun help (&rest argv)
+  (declare (ignorable argv))
+  (princ "SKKクライアント向け辞書サーバー
+
+使い方:
+
+  skkserv コマンド [オプション]
+
+コマンド:
+
+  start  辞書サーバーを立ち上げる
+  stop   辞書サーバーに終了命令を送る
+  handle 辞書サーバーを経由せずに要求を処理する
+
+オプション:
+
+  --no-daemon 辞書サーバーをデーモン化しない
+  --address   辞書サーバーのアドレスを設定する
+  --port      辞書サーバーのポート番号を指定する
+  --encoding  辞書サーバーの文字コードを指定する
+"))
+
 (defun main (&rest argv)
-  (declare (ignorable argv))  
-  ;; Initialization
+  (declare (ignorable argv))
+  ;; Initialize with file
   (let* ((home (user-homedir-pathname))
          (init (merge-pathnames #p".skkservrc" home)))
     (when (probe-file init)
       (load init)))
-  (cond 
-    ;; Start
-    ((string= (first argv) "start")
-     (daemon:daemonize :exit-parent t)
-     (unwind-protect (serve) (daemon:exit)))
-    ((string= (first argv) "debug") (serve))     
-    ;; Stop
-    ((string= (first argv) "stop")
-     (usocket:with-client-socket (socket stream skkserv-user:*address* skkserv-user:*port*)
-       (format stream "5")
-       (force-output stream)))
-    ;; Handle
-    ((string= (first argv) "handle") 
-     (multiple-value-bind (status response)
-         (skkserv:handle (second argv) skkserv-user:*dictionary*)
-       (format t "~a, ~a" status response)))))
+  (cond
+    ((string= (first argv) "start") (apply #'start (rest argv)))
+    ((string= (first argv) "stop") (apply #'stop (rest argv)))
+    ((string= (first argv) "handle") (apply #'handle (rest argv)))
+    (t (help))))
 
 ;;; vim: set ft=lisp lisp:
