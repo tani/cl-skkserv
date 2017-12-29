@@ -34,7 +34,7 @@ Common Lisp開発ツールであるRoswellを使うことで以下のように�
 ```lisp
 (in-package :skkserv-user)
 
-(setf *dictionary* (make-instance 'skk-dictionary :filespec #p"/path/to/dictionary"))
+(setf *dictionary* (make-instance 'skk-dictionary :pathname #p"/path/to/dictionary"))
 ```
 
 Emacsで使う場合は`~/.emacs`で以下を追記してください。
