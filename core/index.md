@@ -18,9 +18,9 @@
 
 ## 目次
 
-- [辞書](/index.html?source=core/dictionary.md)
-- [ハンドラー](/index.html?source=core/handler.md)
-- [プロセス](/index.html?source=core/process.md)
+- [辞書](/cl-skkserv/index.html?source=core/dictionary.md)
+- [ハンドラー](/cl-skkserv/index.html?source=core/handler.md)
+- [プロセス](/cl-skkserv/index.html?source=core/process.md)
 
 
 
