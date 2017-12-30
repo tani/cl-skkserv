@@ -51,7 +51,7 @@ Vimで使う場合は`~/.vimrc`で以下を追記してください。
 ```
 let g:eskk#server = {
 \	'host': 'localhost',
-\	'port': 2278,
+\	'port': 1178,
 \}
 ```
 
