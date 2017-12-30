@@ -36,12 +36,23 @@ Common Lisp開発ツールであるRoswellを使うことで以下のように�
 
 (setf *dictionary* (make-instance 'skk-dictionary :pathname #p"/path/to/dictionary"))
 ```
+##### Emacs
 
 Emacsで使う場合は`~/.emacs`で以下を追記してください。
 
 ```
 (setq skk-server-host "127.0.0.1")
 (setq skk-server-portnum 1178)
+```
+
+##### Vim
+
+Vimで使う場合は`~/.vimrc`で以下を追記してください。
+```
+let g:eskk#server = {
+\	'host': 'localhost',
+\	'port': 2278,
+\}
 ```
 
 #### 辞書
