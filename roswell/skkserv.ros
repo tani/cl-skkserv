@@ -90,8 +90,7 @@ exec ros -Q -- $0 "$@"
 
 (defun main (&rest argv)
   (declare (ignorable argv))
-  (let ((boolean-options '("no-init" "no-daemon")))
-    (declare (ignorable boolean-options))
+  (let ((trivial-argv:*boolean-options* '("no-init" "no-daemon")))
     (cond    
       ((string= (first argv) "start")
        (multiple-value-call #'start (trivial-argv:parse (rest argv))))
