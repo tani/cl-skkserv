@@ -31,24 +31,24 @@ exec ros -Q -- $0 "$@"
   `(progn
      (let* ((home (user-homedir-pathname))
 	    (init (merge-pathnames #p".skkservrc" home)))
-       (when (and (not (gethash "no-init" ,options nil))
+       (when (and (not (gethash "--no-init" ,options nil))
 		  (probe-file init))
 	 (load init)))
      (let ((skkserv-user:*address*
-	    (gethash "address" ,options skkserv-user:*address*))
+	    (gethash "--address" ,options skkserv-user:*address*))
 	   (skkserv-user:*port*
 	    (parse-integer
-	     (gethash "port" ,options (princ-to-string skkserv-user:*port*))))
+	     (gethash "--port" ,options (princ-to-string skkserv-user:*port*))))
 	   (skkserv-user:*encoding*
 	    (alexandria:format-symbol
 	     :keyword "~:@(~a~)"
-	     (gethash "encoding" ,options skkserv-user:*encoding*))))
+	     (gethash "--encoding" ,options skkserv-user:*encoding*))))
        ,@body)))
 
 (defun start (options rest)
   (declare (ignore rest))
   (with-options options
-    (if (not (gethash "no-daemon" options nil))
+    (if (not (gethash "--no-daemon" options nil))
 	(progn
 	  (daemon:daemonize :exit-parent t)
 	  (unwind-protect (serve) (daemon:exit)))
@@ -90,7 +90,9 @@ exec ros -Q -- $0 "$@"
 
 (defun main (&rest argv)
   (declare (ignorable argv))
-  (let ((trivial-argv:*boolean-options* '("no-init" "no-daemon")))
+  (let ((trivial-argv:*boolean-options* '("--no-init" "--no-daemon"))
+	(trivial-argv:*number-options* '("--port"))
+	(trivial-argv:*string-options* '("--address" "--encoding")))
     (cond    
       ((string= (first argv) "start")
        (multiple-value-call #'start (trivial-argv:parse (rest argv))))
