@@ -15,10 +15,10 @@ exec ros -Q -- $0 "$@"
 (defun serve ()
   (catch :exit
     (format *error-output*
-	    "Listening on ~a:~a (~a)~%"
-	    skkserv-user:*address*
-	    skkserv-user:*port*
-	    skkserv-user:*encoding*)
+            "Listening on ~a:~a (~a)~%"
+            skkserv-user:*address*
+            skkserv-user:*port*
+            skkserv-user:*encoding*)
     (usocket:socket-server
      skkserv-user:*address*
      skkserv-user:*port*
@@ -30,29 +30,29 @@ exec ros -Q -- $0 "$@"
 (defmacro with-options (options &body body)
   `(progn
      (let* ((home (user-homedir-pathname))
-	    (init (merge-pathnames #p".skkservrc" home)))
+            (init (merge-pathnames #p".skkservrc" home)))
        (when (and (not (gethash "--no-init" ,options nil))
-		  (probe-file init))
-	 (load init)))
+                  (probe-file init))
+         (load init)))
      (let ((skkserv-user:*address*
-	    (gethash "--address" ,options skkserv-user:*address*))
-	   (skkserv-user:*port*
-	    (parse-integer
-	     (gethash "--port" ,options (princ-to-string skkserv-user:*port*))))
-	   (skkserv-user:*encoding*
-	    (alexandria:format-symbol
-	     :keyword "~:@(~a~)"
-	     (gethash "--encoding" ,options skkserv-user:*encoding*))))
+             (gethash "--address" ,options skkserv-user:*address*))
+           (skkserv-user:*port*
+             (parse-integer
+              (gethash "--port" ,options (princ-to-string skkserv-user:*port*))))
+           (skkserv-user:*encoding*
+             (alexandria:format-symbol
+              :keyword "~:@(~a~)"
+              (gethash "--encoding" ,options skkserv-user:*encoding*))))
        ,@body)))
 
 (defun start (options rest)
   (declare (ignore rest))
   (with-options options
     (if (not (gethash "--no-daemon" options nil))
-	(progn
-	  (daemon:daemonize :exit-parent t)
-	  (unwind-protect (serve) (daemon:exit)))
-	(serve))))
+        (progn
+          (daemon:daemonize :exit-parent t)
+          (unwind-protect (serve) (daemon:exit)))
+        (serve))))
 
 (defun stop (options rest)
   (declare (ignore rest))
@@ -64,7 +64,7 @@ exec ros -Q -- $0 "$@"
 (defun handle (options rest)
   (with-options options
     (multiple-value-bind (status response)
-	(skkserv:handle (first rest) skkserv-user:*dictionary*)
+        (skkserv:handle (first rest) skkserv-user:*dictionary*)
       (format t "~a, ~a" status response))))
 
 (defun help ()
@@ -90,16 +90,20 @@ exec ros -Q -- $0 "$@"
 
 (defun main (&rest argv)
   (declare (ignorable argv))
-  (let ((trivial-argv:*boolean-options* '("--no-init" "--no-daemon"))
-	(trivial-argv:*number-options* '("--port"))
-	(trivial-argv:*string-options* '("--address" "--encoding")))
-    (cond    
-      ((string= (first argv) "start")
-       (multiple-value-call #'start (trivial-argv:parse (rest argv))))
-      ((string= (first argv) "stop")
-       (multiple-value-call #'stop (trivial-argv:parse (rest argv))))
-      ((string= (first argv) "handle")
-       (multiple-value-call #'handle (trivial-argv:parse (rest argv))))
-      (t (help)))))
+  (handler-case
+      (let ((trivial-argv:*boolean-options* '("--no-init" "--no-daemon"))
+	    (trivial-argv:*number-options* '("--port"))
+	    (trivial-argv:*string-options* '("--address" "--encoding")))
+	(cond
+	  ((string= (first argv) "start")
+	   (multiple-value-call #'start (trivial-argv:parse (rest argv))))
+	  ((string= (first argv) "stop")
+	   (multiple-value-call #'stop (trivial-argv:parse (rest argv))))
+	  ((string= (first argv) "handle")
+	   (multiple-value-call #'handle (trivial-argv:parse (rest argv))))
+	  (t (help))))
+    (error (c)
+      (princ c *error-output*)
+      (return-from main))))
 
 ;;; vim: set ft=lisp lisp:
