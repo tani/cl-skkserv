@@ -37,8 +37,7 @@ exec ros -Q -- $0 "$@"
      (let ((skkserv-user:*address*
              (gethash "--address" ,options skkserv-user:*address*))
            (skkserv-user:*port*
-             (parse-integer
-              (gethash "--port" ,options (princ-to-string skkserv-user:*port*))))
+	    (gethash "--port" ,options skkserv-user:*port*))
            (skkserv-user:*encoding*
              (alexandria:format-symbol
               :keyword "~:@(~a~)"
@@ -104,6 +103,10 @@ exec ros -Q -- $0 "$@"
 	  (t (help))))
     (error (c)
       (princ c *error-output*)
+      (return-from main))
+    (usocket:connection-refused-error (c)
+      (princ c *error-output*)
       (return-from main))))
+    
 
 ;;; vim: set ft=lisp lisp:
