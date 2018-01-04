@@ -9,12 +9,9 @@ cl-skkserv.zip:
 	# Local Projects
 	cd cl-skkserv/local-projects && curl -L https://github.com/asciian/cl-skkserv/archive/master.tar.gz | gunzip -c - | tar xf -
 	cd cl-skkserv/local-projects && curl -L https://github.com/asciian/trivial-argv/archive/master.tar.gz | gunzip -c - | tar xf -
-	# Roswell Srcipt
-	tail -n+2 roswell/skkserv.ros > cl-skkserv/skkserv.lisp
-	echo "(sb-ext:save-lisp-and-die \"skkserv\" :toplevel (lambda () (apply #'main sb-ext:*posix-argv*)) :executable t)" >> cl-skkserv/skkserv.lisp
 	# Makefile
 	echo "all:" > cl-skkserv/Makefile
-	echo "	sbcl --load bundle.lisp --script skkserv.lisp" >> cl-skkserv/Makefile
+	echo "	sbcl --load bundle.lisp --eval '(asdf:make :cl-skkserv)'" >> cl-skkserv/Makefile
 	# Readme
 	cp README.md cl-skkserv/README.md
 	# License
