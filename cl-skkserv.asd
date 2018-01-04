@@ -12,9 +12,19 @@
                cl-skkserv/proxy
                cl-skkserv/google-ime
                cl-skkserv/user)
-  :in-order-to ((test-op (test-op cl-skkserv/tests))))
+  :in-order-to ((test-op (test-op cl-skkserv/tests))
+                (build-op (build-op cl-skkserv/cli))))
 
-(defsystem cl-skkserv/core
+(defsystem cl-skkserv/cli
+  :depends-on (cl-skkserv daemon usocket usocket-server alexandria trivial-argv)
+  :build-operation program-op
+  :build-pathname "skkserv"
+  :components ((:module "cli"
+                :components
+                ((:papyrus "index"))))
+  :entry-point "cl-skkserv/cli:entry-point")
+
+ (defsystem cl-skkserv/core
   :depends-on (alexandria esrap babel papyrus named-readtables)
   :serial t
   :components ((:module "core"
