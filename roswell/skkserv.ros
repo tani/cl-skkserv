@@ -3,10 +3,16 @@
 #|
 exec ros -Q -- $0 "$@"
 |#
+(defvar deps '(:cl-skkserv :alexandria :usocket :usocket-server :daemon :trivial-argv))
+
+#+ros.init
 (progn ;;init forms
   (ros:ensure-asdf)
-  #+quicklisp (ql:quickload '(:cl-skkserv :alexandria :usocket :usocket-server :daemon :trivial-argv) :silent t)
+  #+quicklisp (ql:quickload deps :silent t)
   )
+
+#-ros.init
+(dolist (dep deps) (require dep))
 
 (defpackage :ros.script.cl-skkserv.3723019386
   (:use :cl))
