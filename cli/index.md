@@ -1,9 +1,13 @@
-(in-package :cl)
-(defpackage cl-skkserv/cli
-  (:use :cl)
-  (:export main entry-point))
-(in-package :cl-skkserv/cli)
+    (in-package :cl)
+    (defpackage cl-skkserv/cli
+      (:use :cl :papyrus :named-readtables)
+      (:export main entry-point))
+    (in-package :cl-skkserv/cli)
+    (in-readtable :papyrus)
 
+# コマンドラインインターフェース
+
+```lisp
 (defun serve ()
   (catch :exit
     (format *error-output*
@@ -102,4 +106,4 @@
 
 (defun entry-point ()
   (apply #'main uiop:*command-line-arguments*))
-    
+```
