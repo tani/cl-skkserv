@@ -70,6 +70,7 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
        :until (char= (code-char b) #\newline)
        :finally
        (write-byte (char-code #\0) stream)
+       (force-output stream)
        (let* ((r (coerce v '(vector (unsigned-byte 8))))
 	      (s (octets-to-string r :encoding (encoding-of d))))
 	 (return (rest (split "/" s)))))))
@@ -93,6 +94,7 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
        :until (char= (code-char b) #\newline)
        :finally
        (write-byte (char-code #\0) stream)
+       (force-output stream)
        (let* ((r (coerce v '(vector (unsigned-byte 8))))
 	      (s (octets-to-string r :encoding (encoding-of d))))
 	 (return (rest (split "/" s)))))))
