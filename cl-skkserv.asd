@@ -16,7 +16,7 @@
                 (build-op (build-op cl-skkserv/cli))))
 
 (defsystem cl-skkserv/cli
-  :depends-on (cl-skkserv daemon usocket usocket-server alexandria trivial-argv)
+  :depends-on (cl-skkserv daemon usocket usocket-server alexandria unix-opts)
   :build-operation program-op
   :build-pathname "skkserv"
   :components ((:module "cli"
