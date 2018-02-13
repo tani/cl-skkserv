@@ -28,9 +28,11 @@ cl-skkservで呼び出される辞書は必ずこのクラスを継承してい�
 ```lisp
 (defclass dictionary () ())
 (defgeneric convert (dictionary word)
-  (:method-combination append))
+  (:method-combination append)
+  (:method append ((d dictionary) (s string))))
 (defgeneric complete (dictionary word)
-  (:method-combination append))
+  (:method-combination append)
+  (:method append ((d dictionary) (s string))))
 ```
 
 なお辞書クラスを作る際には、よく菱型継承が発生します。その際にスロット名が重複すると意図しない検索結果になることがあります。
