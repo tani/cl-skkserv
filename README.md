@@ -19,6 +19,10 @@ Quicklispとの関係上developブランチ上で開発を行い、安定版の�
 Common Lisp開発ツールであるRoswellを使うことで以下のように簡単に導入できます。
 
     $ ros install asciian/cl-skkserv
+    
+v0.2よりHomebrewおよびLinuxbrewでのインストールが可能になりました。
+
+    $ brew install asciian/lisp/cl-skkserv
 
 ## 使い方
 
