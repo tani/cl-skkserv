@@ -1,5 +1,5 @@
 SHELL=/bin/bash
-DEPS=alexandria cl-ppcre esrap 1am portable-threads jp-numeral drakma flexi-streams yason papyrus named-readtables babel trivial-download usocket daemon
+DEPS=alexandria cl-ppcre esrap 1am portable-threads jp-numeral drakma flexi-streams yason papyrus named-readtables babel trivial-download usocket daemon unix-opts
 
 all:
 
@@ -8,7 +8,6 @@ cl-skkserv.zip:
 	ros -e "(ql:quickload '($(DEPS)) :silent t)" -e "(ql:bundle-systems '($(DEPS)) :to #p\"./cl-skkserv\")" -q
 	# Local Projects
 	cd cl-skkserv/local-projects && curl -L https://github.com/asciian/cl-skkserv/archive/master.tar.gz | gunzip -c - | tar xf -
-	cd cl-skkserv/local-projects && curl -L https://github.com/asciian/trivial-argv/archive/master.tar.gz | gunzip -c - | tar xf -
 	# Makefile
 	echo "all:" > cl-skkserv/Makefile
 	echo "	sbcl --load bundle.lisp --eval '(asdf:make :cl-skkserv)'" >> cl-skkserv/Makefile
