@@ -1,5 +1,5 @@
 # cl-skkserv
-[![GitHub](https://img.shields.io/badge/Hosted%20with-GitHub-red.svg)](https://github.com/TANIGUCHI Masaya/cl-skkserv/) [![Build Status](https://travis-ci.org/TANIGUCHI Masaya/cl-skkserv.svg?branch=master)](https://travis-ci.org/TANIGUCHI Masaya/cl-skkserv) [![Quicklisp](http://quickdocs.org/badge/cl-skkserv.svg)](http://quickdocs.org/cl-skkserv/) [![Amazon Wishlist](https://img.shields.io/badge/Amazon-wishlist-orange.svg)](https://www.amazon.co.jp/hz/wishlist/ls/9XB2O6O7JULV)
+[![GitHub](https://img.shields.io/badge/Hosted%20with-GitHub-red.svg)](https://github.com/bibliobibulus/cl-skkserv/) [![Quicklisp](http://quickdocs.org/badge/cl-skkserv.svg)](http://quickdocs.org/cl-skkserv/)
 
 ## 概要
 
@@ -18,11 +18,7 @@ Quicklispとの関係上developブランチ上で開発を行い、安定版の�
 
 Common Lisp開発ツールであるRoswellを使うことで以下のように簡単に導入できます。
 
-    $ ros install ta2gch/cl-skkserv
-    
-v0.2よりHomebrewおよびLinuxbrewでのインストールが可能になりました。
-
-    $ brew install ta2gch/lisp/cl-skkserv
+    $ ros install cl-skkserv
 
 ## 使い方
 
@@ -105,21 +101,21 @@ cl-skkservで既に定義されている辞書としては以下のクラスが�
 
 ## リファレンス
 
-各システムは[Papyrus](https://ta2gch.com/ta2gch/papyrus/)によって文芸的プログラミングで作られています。
+各システムは[Papyrus](https://bibliobibulus.com/bibliobibulus/papyrus/)によって文芸的プログラミングで作られています。
 各ページへの目次は以下の通りです。
 
-- [ルート](https://ta2gch.github.io/cl-skkserv/index.html)
-    - [コア機能](https://ta2gch.github.io/cl-skkserv/index.html?source=core/index.md)
-    - [SKK辞書](https://ta2gch.github.io/cl-skkserv/index.html?source=skk/index.md)
-    - [Google日本語入力辞書](https://ta2gch.github.io/cl-skkserv/index.html?source=google-ime/index.md)
-    - [プロキシー辞書](https://ta2gch.github.io/cl-skkserv/index.html?source=proxy/index.md)
-    - [複合辞書](https://ta2gch.github.io/cl-skkserv/index.html?source=mixed/index.md)
-    - [設定ファイル](https://ta2gch.github.io/cl-skkserv/index.html?source=user/index.md)
+- [ルート](https://bibliobibulus.github.io/cl-skkserv/index.html)
+    - [コア機能](https://bibliobibulus.github.io/cl-skkserv/index.html?source=core/index.md)
+    - [SKK辞書](https://bibliobibulus.github.io/cl-skkserv/index.html?source=skk/index.md)
+    - [Google日本語入力辞書](https://bibliobibulus.github.io/cl-skkserv/index.html?source=google-ime/index.md)
+    - [プロキシー辞書](https://bibliobibulus.github.io/cl-skkserv/index.html?source=proxy/index.md)
+    - [複合辞書](https://bibliobibulus.github.io/cl-skkserv/index.html?source=mixed/index.md)
+    - [設定ファイル](https://bibliobibulus.github.io/cl-skkserv/index.html?source=user/index.md)
 
 ## ライセンス
 
 GPL第三版及びそれ以降のライセンスのもとで公開された自由ソフトウェアです。
-ライセンスドキュメントは[こちら](https://ta2gch.github.io/cl-skkserv/index.html?source=LICENSE.md)。
+ライセンスドキュメントは[こちら](https://bibliobibulus.github.io/cl-skkserv/index.html?source=LICENSE.md)。
 
 ## 著作権表示
 

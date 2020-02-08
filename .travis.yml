@@ -1,9 +1,0 @@
-language: common-lisp
-sudo: required
-
-install:
-  - curl -L https://raw.githubusercontent.com/roswell/roswell/release/scripts/install-for-ci.sh | sh
-  - ros run -e "(ql:quickload '(:alexandria :esrap :babel :papyrus :named-readtables :cl-ppcre :jp-numeral :usocket :drakma :flexi-streams :yason :trivial-download :1am))" -q
-
-script:
-  - make test
