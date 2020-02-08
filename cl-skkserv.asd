@@ -67,7 +67,7 @@
                 ((:papyrus "index")))))
 
 (defsystem cl-skkserv/user
-  :depends-on (papyrus trivial-download named-readtables cl-skkserv/core)
+  :depends-on (papyrus named-readtables cl-skkserv/core)
   :serial t
   :components ((:module "user"
                 :components
