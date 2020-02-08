@@ -1,7 +1,7 @@
     (in-package :cl-user)
     (defpackage :cl-skkserv/user
       (:nicknames :skkserv/user :cl-skkserv-user :skkserv-user)
-      (:use :cl :asdf :trivial-download :named-readtables :papyrus
+      (:use :cl :asdf :named-readtables :papyrus
 		  :cl-skkserv/core
 		  :cl-skkserv/skk
 		  :cl-skkserv/google-ime
@@ -14,7 +14,7 @@
 # 設定ファイル
 
 <!--
-Copyright (C) 2017 asciian
+Copyright (C) 2017-2020 TANIGUCHI Masaya
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,12 +31,10 @@ along with this program; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 -->
 
-cl-skkservは既定値を設定するために`data/`ディレクトリに辞書ファイルがない場合は、openlabから`SKK-JISYO.L`がダウンロードされます。
+cl-skkservは既定値を設定するために`data/`ディレクトリに辞書ファイルがない場合は、openlabからダウンロードできる`SKK-JISYO.L`が選択されます。
 
 ```lisp
 (defvar jisyo (merge-pathnames #p"data/SKK-JISYO.L" (component-pathname (find-system :cl-skkserv))))
-(unless (probe-file jisyo)
-  (download "http://openlab.ring.gr.jp/skk/skk/dic/SKK-JISYO.L" jisyo))
 ```
 
 設定ファイルが読み込まれない場合の既定値は以下の通りです。

@@ -1,5 +1,5 @@
 # cl-skkserv
-[![GitHub](https://img.shields.io/badge/Hosted%20with-GitHub-red.svg)](https://github.com/asciian/cl-skkserv/) [![Build Status](https://travis-ci.org/asciian/cl-skkserv.svg?branch=master)](https://travis-ci.org/asciian/cl-skkserv) [![Quicklisp](http://quickdocs.org/badge/cl-skkserv.svg)](http://quickdocs.org/cl-skkserv/) [![Amazon Wishlist](https://img.shields.io/badge/Amazon-wishlist-orange.svg)](https://www.amazon.co.jp/hz/wishlist/ls/9XB2O6O7JULV)
+[![GitHub](https://img.shields.io/badge/Hosted%20with-GitHub-red.svg)](https://github.com/TANIGUCHI Masaya/cl-skkserv/) [![Build Status](https://travis-ci.org/TANIGUCHI Masaya/cl-skkserv.svg?branch=master)](https://travis-ci.org/TANIGUCHI Masaya/cl-skkserv) [![Quicklisp](http://quickdocs.org/badge/cl-skkserv.svg)](http://quickdocs.org/cl-skkserv/) [![Amazon Wishlist](https://img.shields.io/badge/Amazon-wishlist-orange.svg)](https://www.amazon.co.jp/hz/wishlist/ls/9XB2O6O7JULV)
 
 ## 概要
 
