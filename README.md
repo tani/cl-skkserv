@@ -101,7 +101,7 @@ cl-skkservで既に定義されている辞書としては以下のクラスが�
 
 ## リファレンス
 
-各システムは[Papyrus](https://bibliobibulus.com/bibliobibulus/papyrus/)によって文芸的プログラミングで作られています。
+各システムは[Papyrus](https://github.com/nzt/papyrus/)によって文芸的プログラミングで作られています。
 各ページへの目次は以下の通りです。
 
 - [ルート](https://bibliobibulus.github.io/cl-skkserv/index.html)
