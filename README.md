@@ -101,21 +101,21 @@ cl-skkservで既に定義されている辞書としては以下のクラスが�
 
 ## リファレンス
 
-各システムは[Papyrus](https://github.com/nzt/papyrus/)によって文芸的プログラミングで作られています。
+各システムは[Papyrus](https://github.com/tani/papyrus/)によって文芸的プログラミングで作られています。
 各ページへの目次は以下の通りです。
 
-- [ルート](https://bibliobibulus.github.io/cl-skkserv/index.html)
-    - [コア機能](https://bibliobibulus.github.io/cl-skkserv/index.html?source=core/index.md)
-    - [SKK辞書](https://bibliobibulus.github.io/cl-skkserv/index.html?source=skk/index.md)
-    - [Google日本語入力辞書](https://bibliobibulus.github.io/cl-skkserv/index.html?source=google-ime/index.md)
-    - [プロキシー辞書](https://bibliobibulus.github.io/cl-skkserv/index.html?source=proxy/index.md)
-    - [複合辞書](https://bibliobibulus.github.io/cl-skkserv/index.html?source=mixed/index.md)
-    - [設定ファイル](https://bibliobibulus.github.io/cl-skkserv/index.html?source=user/index.md)
+- [ルート](https://tani.github.io/cl-skkserv/index.html)
+    - [コア機能](https://tani.github.io/cl-skkserv/index.html?source=core/index.md)
+    - [SKK辞書](https://tani.github.io/cl-skkserv/index.html?source=skk/index.md)
+    - [Google日本語入力辞書](https://tani.github.io/cl-skkserv/index.html?source=google-ime/index.md)
+    - [プロキシー辞書](https://tani.github.io/cl-skkserv/index.html?source=proxy/index.md)
+    - [複合辞書](https://tani.github.io/cl-skkserv/index.html?source=mixed/index.md)
+    - [設定ファイル](https://tani.github.io/cl-skkserv/index.html?source=user/index.md)
 
 ## ライセンス
 
 GPL第三版及びそれ以降のライセンスのもとで公開された自由ソフトウェアです。
-ライセンスドキュメントは[こちら](https://bibliobibulus.github.io/cl-skkserv/index.html?source=LICENSE.md)。
+ライセンスドキュメントは[こちら](https://tani.github.io/cl-skkserv/index.html?source=LICENSE.md)。
 
 ## 著作権表示
 
