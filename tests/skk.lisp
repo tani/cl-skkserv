@@ -1,12 +1,19 @@
 (in-package :cl-user)
 (defpackage cl-skkserv/tests/skk
-  (:use :cl :1am 
+  (:use :cl :1am
+        :asdf/system
         :cl-skkserv/core
         :cl-skkserv/skk))
 (in-package :cl-skkserv/tests/skk)
 
+
+(defun resolve (path)
+  (system-relative-pathname
+    "cl-skkserv/tests" path))
+   
+
 (defparameter *lisp-dictionary* 
-  (make-instance 'skk-lisp-dictionary :pathname #p"./data/SKK-JISYO.L"))
+  (make-instance 'skk-lisp-dictionary :pathname (resolve "./data/SKK-JISYO.L")))
 
 (test test-skk-lisp-dictionary
       ;;検索
@@ -15,14 +22,14 @@
       (is (string= "dosv" (first (complete *lisp-dictionary* "dosv")))))
 
 (defparameter *numeric-dictionary* 
-  (make-instance 'skk-numeric-dictionary :pathname #p"./data/SKK-JISYO.L"))
+  (make-instance 'skk-numeric-dictionary :pathname (resolve "./data/SKK-JISYO.L")))
 
 (test test-skk-numeric-dictionary
       ;;辞書の検索
       (is (string= "12月24日" (first (convert *numeric-dictionary* "12/24")))))
 
 (defparameter *text-dictionary*
-  (make-instance 'skk-text-dictionary :pathname #p"./data/SKK-JISYO.L"))
+  (make-instance 'skk-text-dictionary :pathname (resolve "./data/SKK-JISYO.L")))
 
 (test test-skk-text-dictionary
       ;;検索
