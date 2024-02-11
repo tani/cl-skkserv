@@ -47,14 +47,16 @@ SKKの標準の辞書形式はEUCJPでエンコーディングされた次のよ
 ```
 
 辞書の読み込みではファイルをバイナリーとして読み込みBabelにより変換します。
+必要に応じてエンコーディングを指定することができます。
+既定値は `:eucjp` です。
 その後各行に対して構文解析を行いハッシュテーブルに登録します。
 戻り値はその登録先のハッシュテーブルです。
 
 ```lisp
-(defun make-table (pathname)
+(defun make-table (pathname &optional (encoding :eucjp))
   (if (probe-file pathname)
       (let* ((octets (read-file-into-byte-vector pathname))
-	     (string (babel:octets-to-string octets :encoding :eucjp)))
+	     (string (babel:octets-to-string octets :encoding encoding)))
 	(with-input-from-string (stream string)
 	  (do* ((table (make-hash-table :test 'equalp))
 		(line (read-line stream nil nil nil)

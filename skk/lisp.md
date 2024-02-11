@@ -34,12 +34,14 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
 ## クラス
 
-この辞書クラスは`skk-lisp-dictionary`を言うクラス名で宣言されており、パス名と辞書データの二つを保持します。
-
+この辞書クラスは`skk-lisp-dictionary`を言うクラス名で宣言されており、
+パス名と辞書データ、および文字コードの3つを保持します。
+既定の文字コードは `:eucjp` です。
 
 ```lisp
 (defclass skk-lisp-dictionary (dictionary)
   ((pathname :initarg :pathname :reader pathname-of)
+   (encoding :initarg :encoding :initform :eucjp :reader encoding-of)
    (table :accessor table-of)))
 ```
 
@@ -48,10 +50,11 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 初期化時にはパス名から自動で辞書テーブルが生成されます。
 
 ```lisp
-(defmethod initialize-instance :after ((d skk-lisp-dictionary) &rest initargs)
+(defmethod initialize-instance :after ((dict skk-lisp-dictionary) &rest initargs)
   (declare (ignore initargs))
-  (setf (table-of d) (make-table (pathname-of d))))
-
+  (let ((pathname (pathname-of dict))
+        (encoding (encoding-of dict)))
+    (setf (table-of dict) (make-table pathname encoding))))
 ```
 
 ### 変換機能

@@ -45,6 +45,8 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
     (setq *dictionary* (make-instance 'skk-dictionary :pathname #p"/path/to/dictionary")
 
 なおクラス生成時には必ず辞書のパス名を指定してください。
+必要に応じて `:encoding` によってエンコーディングを指定することができます。
+既定値は `:eucjp` です。
 
 ## クラス
 

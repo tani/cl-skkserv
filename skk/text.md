@@ -34,11 +34,14 @@ SKK辞書においてもっとも基本的な辞書です。
 
 ## クラス
 
-この辞書クラスは`skk-text-dictionary`を言うクラス名で宣言されており、パス名と辞書データの二つを保持します。
+この辞書クラスは`skk-text-dictionary`を言うクラス名で宣言されており、
+パス名と辞書データ、および文字コードの3つを保持します。
+既定の文字コードは `:eucjp` です。
 
 ```lisp
 (defclass skk-text-dictionary (dictionary)
   ((pathname :initarg :pathname :reader pathname-of)
+   (encoding :initarg :encoding :initform :eucjp :reader encoding-of)
    (table :accessor table-of)))
 ```
 
@@ -46,11 +49,12 @@ SKK辞書においてもっとも基本的な辞書です。
 
 初期化時にはパス名から自動で辞書テーブルが生成されます。
 
-
 ```lisp
 (defmethod initialize-instance :after ((dict skk-text-dictionary) &rest initargs)
   (declare (ignore initargs))
-  (setf (table-of dict) (make-table (pathname-of dict))))
+  (let ((pathname (pathname-of dict))
+        (encoding (encoding-of dict)))
+    (setf (table-of dict) (make-table pathname encoding))))
 ```
 
 ### 変換機能

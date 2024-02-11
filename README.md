@@ -10,15 +10,12 @@ cl-skkservはSKKサーバーとその辞書機能が完全に分離しており�
 これにより辞書ファイルを事前に合成しておく必要がなくなります。
 更にGoogleのCGIや他のSKKサーバーでさえ辞書として使うことができます。
 
-なお、このソフトウェアは開発初期段階です。APIが変わる可能性があります。
-Quicklispとの関係上developブランチ上で開発を行い、安定版の公開用にmasterブランチを使用しています。
-最新の開発版APIはdevelopブランチを参照してください。
-
 ## 導入
 
 Common Lisp開発ツールであるRoswellを使うことで以下のように簡単に導入できます。
 
-    $ ros install cl-skkserv
+    $ ros install cl-skkservl # 安定版 (Quicklisp)
+	$ ros install tani/cl-skkserv # 開発版 (Nightly)
 
 ## 使い方
 
