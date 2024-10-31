@@ -38,7 +38,6 @@
             yason
             named-readtables
             babel
-            trivial-download
             usocket
             usocket-server
             daemon
