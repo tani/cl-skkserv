@@ -4,7 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
-    papyrus.url = "github:tani/papyrus/pod";
+    papyrus.url = "github:tani/papyrus";
   };
   outputs = inputs @ {
     self,
