@@ -1,5 +1,5 @@
 # cl-skkserv
-[![GitHub](https://img.shields.io/badge/Hosted%20with-GitHub-red.svg)](https://github.com/bibliobibulus/cl-skkserv/) [![Quicklisp](http://quickdocs.org/badge/cl-skkserv.svg)](http://quickdocs.org/cl-skkserv/)
+[![GitHub](https://img.shields.io/badge/Hosted%20with-GitHub-red.svg)](https://github.com/tani/cl-skkserv/) [![Quicklisp](http://quickdocs.org/badge/cl-skkserv.svg)](http://quickdocs.org/cl-skkserv/)
 
 ## 概要
 
@@ -14,8 +14,12 @@ cl-skkservはSKKサーバーとその辞書機能が完全に分離しており�
 
 Common Lisp開発ツールであるRoswellを使うことで以下のように簡単に導入できます。
 
-    $ ros install cl-skkservl # 安定版 (Quicklisp)
-	$ ros install tani/cl-skkserv # 開発版 (Nightly)
+    $ ros install cl-skkserv # 安定版 (Quicklisp)
+    $ ros install tani/cl-skkserv # 開発版 (Nightly)
+
+Nix Flake を使うことで以下のようにも実行できます。
+
+    $ nix run github:tani/cl-skkserv
 
 ## 使い方
 
