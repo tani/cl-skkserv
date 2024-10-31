@@ -1,15 +1,14 @@
-    (in-package :cl-user)
     (defpackage :cl-skkserv/user
       (:nicknames :skkserv/user :cl-skkserv-user :skkserv-user)
-      (:use :cl :asdf :named-readtables :papyrus
-		  :cl-skkserv/core
-		  :cl-skkserv/skk
-		  :cl-skkserv/google-ime
-		  :cl-skkserv/proxy
-		  :cl-skkserv/mixed)
+      (:use :cl :asdf
+            :cl-skkserv/core
+            :cl-skkserv/skk
+            :cl-skkserv/mixed
+            :cl-skkserv/google-ime
+            :cl-skkserv/proxy)
       (:export *dictionary* *address* *port* *encoding*))
     (in-package :cl-skkserv/user)
-    (in-readtable :papyrus)
+    (named-readtables:in-readtable papyrus:md-syntax)
 
 # 設定ファイル
 

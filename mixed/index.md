@@ -1,10 +1,9 @@
-    (in-package :cl-user)
     (defpackage :cl-skkserv/mixed
       (:nicknames :skkserv/mixed)
-      (:use :cl :named-readtables :papyrus :cl-skkserv/core)
-      (:export mixed-dictionary))
+      (:use :cl :cl-skkserv/core)
+      (:export :mixed-dictionary))
     (in-package :cl-skkserv/mixed)
-    (in-readtable :papyrus)
+    (named-readtables:in-readtable papyrus:md-syntax)
 
 # 複合辞書
 
@@ -72,3 +71,4 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
 
 なぜなら`mixed-dictionary`を使って作られた辞書同士の結合は、また`mixed-dictionary`でしか出来ないからです。一方でクラス継承を使用したときは、クラス継承と`mixed-dictionary`の二つの方法で結合できるようになります。
+

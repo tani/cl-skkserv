@@ -1,10 +1,9 @@
-    (in-package :cl-user)
     (defpackage :cl-skkserv/proxy
       (:nicknames :skkserv/proxy)
-      (:use :cl :usocket :babel :cl-ppcre :named-readtables :papyrus :cl-skkserv/core)
+      (:use :cl :usocket :babel :cl-ppcre :cl-skkserv/core)
       (:export proxy-dictionary))
     (in-package :cl-skkserv/proxy)
-    (in-readtable :papyrus)
+    (named-readtables:in-readtable papyrus:md-syntax)
 
 # プロキシー辞書
 
@@ -74,8 +73,8 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
        (let* ((r (coerce v '(vector (unsigned-byte 8))))
 	      (s (octets-to-string r :encoding (encoding-of d))))
 	 (return (rest (split "/" s)))))))
-```	
-	
+```
+
 ### 補完機能
 
 指定された辞書サーバーに対して、他のクライアントと同様にソケット通信で要求しその結果をもとに補完候補の列を作り返します。
@@ -98,4 +97,5 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
        (let* ((r (coerce v '(vector (unsigned-byte 8))))
 	      (s (octets-to-string r :encoding (encoding-of d))))
 	 (return (rest (split "/" s)))))))
-```		
+```
+

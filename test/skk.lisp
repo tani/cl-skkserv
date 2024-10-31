@@ -1,15 +1,15 @@
 (in-package :cl-user)
-(defpackage cl-skkserv/tests/skk
+(defpackage cl-skkserv/test/skk
   (:use :cl :1am
         :asdf/system
         :cl-skkserv/core
         :cl-skkserv/skk))
-(in-package :cl-skkserv/tests/skk)
+(in-package :cl-skkserv/test/skk)
 
 
 (defun resolve (path)
   (system-relative-pathname
-    "cl-skkserv/tests" path))
+    "cl-skkserv/test" path))
    
 
 (defparameter *lisp-dictionary* 

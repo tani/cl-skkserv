@@ -1,5 +1,5 @@
     (in-package :cl-skkserv/core)
-    (in-readtable :papyrus)
+    (named-readtables:in-readtable papyrus:md-syntax)
 
 # プロセス
 

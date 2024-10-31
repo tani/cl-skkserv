@@ -1,9 +1,9 @@
 (in-package :cl-user)
-(defpackage :cl-skkserv/tests/core
-  (:use :cl :flexi-streams :1am 
+(defpackage :cl-skkserv/test/core
+  (:use :cl :flexi-streams :1am
         :cl-skkserv/core
         :cl-skkserv/skk))
-(in-package :cl-skkserv/tests/core)
+(in-package :cl-skkserv/test/core)
 
 (defparameter *dictionary* (make-instance 'skk-text-dictionary :pathname #p"./data/SKK-JISYO.L"))
 

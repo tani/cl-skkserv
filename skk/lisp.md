@@ -1,5 +1,5 @@
     (in-package :cl-skkserv/skk)
-    (in-readtable :papyrus)
+    (named-readtables:in-readtable papyrus:md-syntax)
 
 # LISP辞書
 

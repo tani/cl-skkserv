@@ -1,10 +1,9 @@
-    (in-package :cl-user)
     (defpackage :cl-skkserv/google-ime
       (:nicknames :skkserv/google-ime)
-      (:use :cl :drakma :yason :flexi-streams :alexandria :named-readtables :papyrus :cl-skkserv/core)
-      (:export google-ime-dictionary))
-    (in-package :cl-skkserv/google-ime)
-    (in-readtable :papyrus)
+      (:use :cl :drakma :yason :flexi-streams :alexandria :cl-skkserv/core)
+      (:export :google-ime-dictionary))
+    (in-package #:cl-skkserv/google-ime)
+    (named-readtables:in-readtable papyrus:md-syntax)
 
 # Google日本語入力辞書
 
@@ -34,7 +33,6 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 またSKK辞書に無い文字列の変換を行いたいときの補助辞書としても活用できます。
 
     (setq *dictionary* (make-instance 'google-ime-dictionary))
-
 
 ## 注意事項
 
@@ -81,17 +79,15 @@ Google日本語入力が提供するCGI APIは入力文字列に対して文節�
 ```lisp
 (defmethod convert append ((d google-ime-dictionary) (s string))
   (handler-case
-	  (let* ((*drakma-default-external-format* :utf-8)
-		 (params `(("langpair" . "ja-Hira|ja") ("text" . ,s)))
-		 (stream (http-request *URL* :parameters params :want-stream t)))
-		(setf (flexi-stream-external-format stream) :utf-8)
-		(let ((candidates (mapcar #'second (parse stream :object-as :plist))))
-		  (flet ((scat (&rest s) (apply #'concatenate 'string s)))
-			(apply #'map-product #'scat candidates))))
-	(error () (warn "CL-SKKSERV/GOOGLE:WARN: ~a is not active.~%" *URL*))))
-		   
+    (let* ((drakma:*drakma-default-external-format* :utf-8)
+           (params `(("langpair" . "ja-Hira|ja") ("text" . ,s)))
+           (stream (http-request *URL* :parameters params :want-stream t)))
+      (setf (flexi-stream-external-format stream) :utf-8)
+      (let ((candidates (mapcar #'second (parse stream :object-as :plist))))
+        (flet ((scat (&rest s) (apply #'concatenate 'string s)))
+          (apply #'map-product #'scat candidates))))
+    (error () (warn "CL-SKKSERV/GOOGLE:WARN: ~a is not active.~%" *URL*))))
 ```
-
 
 ## 補完処理
 
